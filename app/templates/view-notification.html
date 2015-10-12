@@ -1,0 +1,103 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Service: dogs rentals"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+<h2 class="summary-item-heading">
+    Notification
+</h2>
+
+
+  <table class="summary-item-body">
+    <caption class="visuallyhidden">
+      A Notification
+    </caption>
+    <thead class="summary-item-field-headings-visible">
+      <tr>
+
+          <th scope="col" class="summary-item-field-heading-first">
+
+              Who
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading-first">
+
+              Type
+
+          </th>
+
+         <th scope="col" class="summary-item-field-heading-first">
+
+              Contact Details
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              What
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              When
+
+          </th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+  <tr class="summary-item-row">
+
+       <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">John Smith</a>
+  </span>
+  </td>
+
+        <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">SMS</a>
+  </span>
+  </td>
+
+    <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">+44 123456789</a>
+  </span>
+  </td>
+      <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">This is the message that we sent</a>
+  </span>
+  </td>
+    <td class="summary-item-field">
+    <span>
+    2015-01-01 12:45
+  </span>
+  </td>
+
+  </tr>
+
+
+    </tbody>
+  </table>
+
+
+</div>
+{% endblock %}
