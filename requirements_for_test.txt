@@ -3,5 +3,3 @@ pep8==1.5.7
 pytest==2.8.1
 mock==1.0.1
 requests-mock==0.6.0
-lxml==3.4.4
-cssselect==0.9.1
