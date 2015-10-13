@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.4"
+install:
+  - pip install -r requirements_for_test.txt
+  - npm install
+  - npm run frontend-build:production
+script:
+  - ./scripts/run_tests.sh
+notifications:
+  email: false

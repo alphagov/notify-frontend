@@ -1,0 +1,41 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Administrator login"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    <form autocomplete="off" action="" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="question" id="username">
+                    <label for="username">
+                      <span class="question-heading">
+                        Username
+                      </span>
+                    </label>
+                    <input type="text" name="username" id="input-username" class="text-box" value=""/>
+                </div>
+                <div class="question" id="password">
+                    <label for="input-password">
+                      <span class="question-heading">
+                        Password
+                      </span>
+                    </label>
+                    <input type="text" name="password" id="input-password" class="text-box" value=""/>
+                </div>
+                <button class="button-save">Log in</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

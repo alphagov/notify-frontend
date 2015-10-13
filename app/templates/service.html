@@ -1,0 +1,123 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Service: dogs rentals"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+<h2 class="summary-item-heading">
+    Send some things
+</h2>
+
+
+  <table class="summary-item-body">
+    <caption class="visuallyhidden">
+      Things we sent table
+    </caption>
+    <thead class="summary-item-field-headings-visible">
+      <tr>
+
+          <th scope="col" class="summary-item-field-heading-first">
+
+              Who
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              Type
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              <span class="hidden">Action</span>
+
+          </th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+  <tr class="summary-item-row">
+
+    <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">martyn.inglis@email.com</a>
+  </span>
+  </td>
+    <td class="summary-item-field">
+    <span>
+    Batch
+  </span>
+  </td>
+    <td class="summary-item-field-with-action">
+    <span>
+    <a href="/admin/view-notification-batch">View</a>
+  </span>
+  </td>
+
+  </tr>
+
+
+
+  <tr class="summary-item-row">
+
+    <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">API 1234</a>
+  </span>
+  </td>
+    <td class="summary-item-field">
+    <span>
+    Email
+  </span>
+  </td>
+    <td class="summary-item-field-with-action">
+    <span>
+    <a href="/admin/view-notification">View</a>
+  </span>
+  </td>
+
+  </tr>
+
+
+
+  <tr class="summary-item-row">
+
+    <td class="summary-item-field-first-wider">
+    <span>
+    <a href="#">API 4567</a>
+  </span>
+  </td>
+    <td class="summary-item-field">
+    <span>
+    SMS
+  </span>
+  </td>
+    <td class="summary-item-field-with-action">
+    <span>
+    <a href="/admin/view-notification">View</a>
+  </span>
+  </td>
+
+  </tr>
+
+
+
+    </tbody>
+  </table>
+
+
+</div>
+{% endblock %}
