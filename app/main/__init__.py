@@ -3,7 +3,7 @@ from flask import Blueprint
 
 main = Blueprint('main', __name__)
 
-from .views import login, service, view
+from .views import login, service, view, dashboard
 
 
 @main.after_request
