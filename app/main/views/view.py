@@ -11,7 +11,3 @@ def view_notification_batch():
 @main.route('/view-notification', methods=['GET'])
 def view_notification():
     return render_template("view-notification.html", **get_template_data())
-
-
-
-
