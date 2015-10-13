@@ -8,7 +8,8 @@ application = create_app(
     os.getenv('NOTIFY_ENVIRONMENT') or 'development'
 )
 manager = Manager(application)
-manager.add_command("runserver", Server(port=6002))
+port = int(os.environ.get('PORT', 6002))
+manager.add_command("runserver", Server(host='0.0.0.0', port=port))
 
 if __name__ == '__main__':
     manager.run()
