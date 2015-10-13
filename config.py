@@ -12,6 +12,7 @@ class Config(object):
         'asset_path': ASSET_PATH
     }
 
+
 class Test(Config):
     DEBUG = True
 

@@ -6,7 +6,3 @@ from . import get_template_data
 @main.route('/service', methods=['GET'])
 def view_service():
     return render_template("service.html", **get_template_data())
-
-
-
-
