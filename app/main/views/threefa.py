@@ -7,6 +7,3 @@ from . import get_template_data
 def view_3fa():
     return render_template("3fa.html", **get_template_data())
 
-
-
-
