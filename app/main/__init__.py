@@ -3,7 +3,7 @@ from flask import Blueprint
 
 main = Blueprint('main', __name__)
 
-from .views import login, service, view
+from .views import login, service, view, create_service, threefa
 
 
 @main.after_request
