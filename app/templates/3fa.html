@@ -1,0 +1,42 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Add service"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    <form autocomplete="off" action="" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="question" id="emailcode">
+                    <label for="emailcode">
+                      <span class="question-heading">
+                        Email code received
+                      </span>
+                    </label>
+                    <input type="text" name="emailcode" id="input-emailcode" class="text-box" value=""/>
+                </div>
+                <div class="question" id="smscode">
+                    <label for="smscode">
+                      <span class="question-heading">
+                        SMS code received
+                      </span>
+                    </label>
+                    <input type="text" name="smscode" id="input-smscode" class="text-box" value=""/>
+                </div>
+
+                <button class="button-save">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
