@@ -7,7 +7,7 @@ GOV.UK Notify
 <div class="page-container">
     {%
     with
-    heading = "Service: dogs rentals"
+    heading = "My test service"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
@@ -53,28 +53,6 @@ GOV.UK Notify
 
     <td class="summary-item-field-first-wider">
     <span>
-    <a href="#">martyn.inglis@email.com</a>
-  </span>
-  </td>
-    <td class="summary-item-field">
-    <span>
-    Batch
-  </span>
-  </td>
-    <td class="summary-item-field-with-action">
-    <span>
-    <a href="/admin/view-notification-batch">View</a>
-  </span>
-  </td>
-
-  </tr>
-
-
-
-  <tr class="summary-item-row">
-
-    <td class="summary-item-field-first-wider">
-    <span>
     <a href="#">API 1234</a>
   </span>
   </td>
@@ -85,7 +63,7 @@ GOV.UK Notify
   </td>
     <td class="summary-item-field-with-action">
     <span>
-    <a href="/admin/view-notification">View</a>
+    <a href="{{ url_for('main.view_notification') }}">View</a>
   </span>
   </td>
 
@@ -107,7 +85,7 @@ GOV.UK Notify
   </td>
     <td class="summary-item-field-with-action">
     <span>
-    <a href="/admin/view-notification">View</a>
+    <a href="{{ url_for('main.view_notification') }}">View</a>
   </span>
   </td>
 

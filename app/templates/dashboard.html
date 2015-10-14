@@ -7,7 +7,7 @@ GOV.UK Notify
 <div class="page-container">
     {%
     with
-    heading = "Service: dogs rentals"
+    heading = "My test service"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
@@ -17,8 +17,7 @@ GOV.UK Notify
     What do you want to do?
 </h2>
 
-<a href="/service">See notification history</a>
-
+<a href="{{ url_for('main.view_service') }}">See notification history</a>
 
 
 </div>
