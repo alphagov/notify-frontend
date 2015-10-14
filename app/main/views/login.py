@@ -1,9 +1,11 @@
 from flask import render_template, redirect, url_for, request, flash
+
 from .. import main
 from . import get_template_data
-from app.main.user import User
+from app.user import User
 from app.main.forms import LoginForm
-from flask_login import login_user, logout_user, login_required
+from ... import data_api_client
+from flask_login import login_user, logout_user
 
 
 @main.route('/login', methods=['GET'])
@@ -16,6 +18,7 @@ def process_login():
     next_url = request.args.get('next')
     form = LoginForm()
     if form.validate_on_submit():
+        print(data_api_client.get_user(1234))
         user = User.load_user()
         login_user(user)
         if next_url and next_url.startswith('/admin'):

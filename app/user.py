@@ -1,11 +1,3 @@
-from flask import json
-
-
-def user_has_role(user, role):
-    try:
-        return user['users']['role'] == role
-    except (KeyError, TypeError):
-        return False
 
 
 class User():
@@ -69,3 +61,10 @@ class User():
             user = User.from_json(user_json)
             if user.is_active():
                 return user
+
+
+def user_has_role(user, role):
+    try:
+        return user['users']['role'] == role
+    except (KeyError, TypeError):
+        return False

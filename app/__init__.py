@@ -2,15 +2,18 @@ import os
 from datetime import timedelta
 
 from flask import Flask, request, redirect
+
 from flask._compat import string_types
+
 from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
-from app.main.user import User
-
+from app.api_client import DataAPIClient
+from app.user import User
 from config import configs
 
 csrf = CsrfProtect()
 login_manager = LoginManager()
+data_api_client = DataAPIClient()
 
 
 def create_app(config_name):
@@ -27,6 +30,7 @@ def create_app(config_name):
     init_app(application)
     csrf.init_app(application)
     login_manager.init_app(application)
+    data_api_client.init_app(application)
 
     from .main import main as main_blueprint
     application.permanent_session_lifetime = timedelta(hours=1)

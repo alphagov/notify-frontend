@@ -11,6 +11,8 @@ class Config(object):
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = True
     SECRET_KEY = os.getenv('NOTIFY_ADMIN_FRONTEND_COOKIE_SECRET')
+    NOTIFY_DATA_API_URL = "http://localhost:6001"
+    NOTIFY_DATA_API_AUTH_TOKEN = "valid-token"
 
     STATIC_URL_PATH = '/admin/static'
     ASSET_PATH = STATIC_URL_PATH + '/'
