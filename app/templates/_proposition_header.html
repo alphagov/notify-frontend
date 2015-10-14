@@ -1,7 +1,16 @@
 <div class="header-proposition">
-  <div class="content">
-    <nav id="proposition-menu">
-      <a href="/dashboard" id="proposition-name">Notifications</a>
-    </nav>
-  </div>
+    <div class="content">
+        <nav id="proposition-menu">
+            <a href="/dashboard" id="proposition-name">Notifications</a>
+        </nav>
+        {% if current_user.email_address %}
+        <ul id="proposition-links">
+            {% if current_user.has_role('admin') or current_user.has_role('admin-ccs-category') %}
+            {% endif %}
+            <li>
+                <a href="{{ url_for('main.logout') }}">Log out</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
 </div>

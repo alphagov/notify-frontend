@@ -1,10 +1,16 @@
 import os
 from datetime import timedelta
 
-from flask import Flask
+from flask import Flask, request, redirect
 from flask._compat import string_types
+from flask_wtf.csrf import CsrfProtect
+from flask_login import LoginManager
+from app.main.user import User
 
 from config import configs
+
+csrf = CsrfProtect()
+login_manager = LoginManager()
 
 
 def create_app(config_name):
@@ -19,11 +25,20 @@ def create_app(config_name):
     application.config.from_object(configs[config_name])
 
     init_app(application)
+    csrf.init_app(application)
+    login_manager.init_app(application)
 
     from .main import main as main_blueprint
-
+    application.permanent_session_lifetime = timedelta(hours=1)
     application.register_blueprint(main_blueprint, url_prefix='/admin')
+    login_manager.login_view = 'main.render_login'
+
     main_blueprint.config = application.config.copy()
+
+    @application.before_request
+    def remove_trailing_slash():
+        if request.path != '/' and request.path.endswith('/'):
+            return redirect(request.path[:-1], code=301)
 
     return application
 
@@ -32,6 +47,12 @@ def init_app(app):
     for key, value in app.config.items():
         if key in os.environ:
             app.config[key] = convert_to_boolean(os.environ[key])
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    print("user_id")
+    return User.load_user()
 
 
 def convert_to_boolean(value):
