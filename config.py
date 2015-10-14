@@ -22,11 +22,13 @@ class Config(object):
 
 class Test(Config):
     DEBUG = True
+    SECRET_KEY = "not-so-secret"
 
 
 class Development(Config):
     DEBUG = True
     SESSION_COOKIE_SECURE = False
+    SECRET_KEY = "not-so-secret"
 
 
 class Live(Config):

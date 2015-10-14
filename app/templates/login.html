@@ -4,7 +4,10 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+
 <div class="page-container">
+
+
     {%
     with
     heading = "Administrator login"
@@ -13,49 +16,63 @@ GOV.UK Notify
     {% endwith %}
 
 
+    {% if form.errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            There was a problem with your answer to the following questions
+        </h3>
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ form[field_name].label }}</a>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
     <form autocomplete="off" action="" method="post">
         <div class="grid-row">
-        <div class="column-two-thirds">
-            {{ form.hidden_tag() }}
+            <div class="column-two-thirds">
+                {{ form.hidden_tag() }}
 
-            {% if form.email_address.errors %}
-              <div class="validation-wrapper">
-            {% endif %}
-              <div class="question">
-                    {{ form.email_address.label(class="question-heading-with-hint") }}
-                    <p class="hint">
-                        Enter the email address you used to register with the Digital Marketplace
-                    </p>
-                    {% if form.email_address.errors %}
-                    <p class="validation-message" id="error-email-address-textbox">
-                        {% for error in form.email_address.errors %}{{ error }}{% endfor %}
-                    </p>
-                    {% endif %}
-                    {{ form.email_address(class="text-box", autocomplete="off") }}
-                </div>
-            {% if form.email_address.errors %}
-                </div>
-            {% endif %}
-
-            {% if form.password.errors %}
+                {% if form.email_address.errors %}
                 <div class="validation-wrapper">
-            {% endif %}
-                <div class="question">
-                    {{ form.password.label(class="question-heading") }}
-                    {% if form.password.errors %}
-                    <p class="validation-message" id="error-password-textbox">
-                        {% for error in form.password.errors %}{{ error }}{% endfor %}
-                    </p>
                     {% endif %}
-                    {{ form.password(class="text-box", autocomplete="off") }}
+                    <div class="question">
+                        {{ form.email_address.label(class="question-heading-with-hint") }}
+                        <p class="hint">
+                            Enter the email address you used to register with the Digital Marketplace
+                        </p>
+                        {% if form.email_address.errors %}
+                        <p class="validation-message" id="error-email-address-textbox">
+                            {% for error in form.email_address.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.email_address(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.email_address.errors %}
                 </div>
-            {% if form.password.errors %}
-                </div>
-            {% endif %}
+                {% endif %}
 
-            <button class="button-save">Log in</button>
+                {% if form.password.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.password.label(class="question-heading") }}
+                        {% if form.password.errors %}
+                        <p class="validation-message" id="error-password-textbox">
+                            {% for error in form.password.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.password(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.password.errors %}
+                </div>
+                {% endif %}
+
+                <button class="button-save">Log in</button>
+            </div>
         </div>
-    </div>
     </form>
 
 </div>

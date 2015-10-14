@@ -30,7 +30,6 @@ def process_login():
 
 
 @main.route('/logout', methods=['GET'])
-@login_required
 def logout():
     logout_user()
     flash('logged_out', 'success')

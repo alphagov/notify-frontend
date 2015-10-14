@@ -24,3 +24,6 @@ function display_result {
 
 pep8 .
 display_result $? 1 "Code style check"
+
+py.test -v
+display_result $? 2 "Unit tests"
