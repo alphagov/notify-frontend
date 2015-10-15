@@ -8,15 +8,17 @@ class DataAPIClient(BaseAPIClient):
         self.base_url = app.config['NOTIFY_DATA_API_URL']
         self.auth_token = app.config['NOTIFY_DATA_API_AUTH_TOKEN']
 
-    def get_user(self, user_id=None):
+    def get_user_by_email_address(self, email_address):
         try:
-            user = self._get("/users/{}".format(user_id))
+            return self._get("/users", params={"email_address": email_address})
+        except HTTPError as e:
+            if e.status_code != 404:
+                raise
+        return None
 
-            if isinstance(user['users'], list):
-                user['users'] = user['users'][0]
-
-            return user
-
+    def get_user_by_id(self, user_id):
+        try:
+            return self._get("/users/{}".format(user_id))
         except HTTPError as e:
             if e.status_code != 404:
                 raise

@@ -3,3 +3,4 @@ pep8==1.5.7
 pytest==2.8.1
 mock==1.0.1
 requests-mock==0.6.0
+pytest-mock==0.8.1

@@ -15,6 +15,25 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="banner-destructive-without-action">
+            {% if message == 'no_account' %}
+            <p class="banner-message">
+                Make sure you've entered the right email address and password.
+                Accounts are locked after 5 failed attempts. If you think your
+                account has been locked, email
+                <a href="mailto:notify@digital.cabinet-office.gov.uk">notify@digital.cabinet-office.gov.ukk</a>.
+            </p>
+            {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
 
     {% if form.errors|length > 0 %}
     <div class="validation-masthead" aria-labelledby="validation-masthead-heading">

@@ -55,8 +55,7 @@ def init_app(app):
 
 @login_manager.user_loader
 def load_user(user_id):
-    print("user_id")
-    return User.load_user()
+    return User.load_user(data_api_client, user_id)
 
 
 def convert_to_boolean(value):

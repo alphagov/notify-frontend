@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, session
 
 from .. import main
 from . import get_template_data
@@ -18,13 +18,22 @@ def process_login():
     next_url = request.args.get('next')
     form = LoginForm()
     if form.validate_on_submit():
-        print(data_api_client.get_user(1234))
-        user = User.load_user()
-        login_user(user)
-        if next_url and next_url.startswith('/admin'):
-            return redirect(next_url)
+        user_json = data_api_client.get_user_by_email_address(form.email_address.data)
+        if user_json:
+            user = User.from_json(user_json)
+            login_user(user)
+            session['organisation'] = user.organisation['name']
+            if next_url and next_url.startswith('/admin'):
+                return redirect(next_url)
 
-        return redirect(url_for('.view_service'))
+            return redirect(url_for('.view_dashboard'))
+        else:
+            flash("no_account", "error")
+            return render_template(
+                "login.html",
+                form=form,
+                **get_template_data()), 403
+
     else:
         return render_template(
             'login.html',
