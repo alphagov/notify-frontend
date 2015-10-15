@@ -24,6 +24,7 @@ class Config(object):
 
 class Test(Config):
     DEBUG = True
+    WTF_CSRF_ENABLED = False
     SECRET_KEY = "not-so-secret"
 
 
