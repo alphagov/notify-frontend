@@ -3,23 +3,47 @@
 GOV.UK Notify
 {% endblock %}
 
+
 {% block content %}
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": "/",
+        "label": session['organisation']
+      }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
+
 <div class="page-container">
     {%
     with
-    heading = "Service: dogs rentals"
+    heading = "Dashboard"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
 
-<h2 class="summary-item-heading">
-    What do you want to do?
-</h2>
-
-<a href="/admin/service">See notification history</a>
-
-
+    {%
+  with
+  items = [
+    {
+        "subtext": "for this organisation",
+        "link": url_for('main.view_service'),
+        "title": "See all services"
+    },
+    {
+        "link": url_for('main.view_create_service'),
+        "subtext": "prior to sending notifications",
+        "title": "Create a new service"
+    }
+]
+%}
+  {% include "toolkit/browse-list.html" %}
+{% endwith %}
 
 </div>
 {% endblock %}

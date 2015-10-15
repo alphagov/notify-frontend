@@ -1,7 +1,14 @@
 <div class="header-proposition">
-  <div class="content">
-    <nav id="proposition-menu">
-      <a href="/admin/dashboard" id="proposition-name">Notifications</a>
-    </nav>
-  </div>
+    <div class="content">
+        <nav id="proposition-menu">
+            <a href="{{ url_for('main.view_dashboard')}}" id="proposition-name">Notifications</a>
+        </nav>
+        {% if current_user.email_address %}
+        <ul id="proposition-links">
+            <li>
+                <a href="{{ url_for('main.logout') }}">Log out</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
 </div>
