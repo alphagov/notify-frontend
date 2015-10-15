@@ -6,5 +6,5 @@ from flask_login import login_required, current_user
 
 @main.route('/send-sms', methods=['GET'])
 @login_required
-def view_service():
+def send_sms():
     return render_template("send_sms.html", **get_template_data())

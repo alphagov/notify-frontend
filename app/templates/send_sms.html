@@ -1,0 +1,41 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Send an SMS"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    <form autocomplete="off" action="" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="question" id="mobile-number">
+                    <label for="input-mobile-number">
+                      <span class="question-heading">
+                        Mobile number
+                      </span>
+                    </label>
+                    <input type="text" name="mobile-number" id="input-mobile-number" class="text-box" value=""/>
+                </div>
+                  <div class="question" id="sms-message">
+                    <label for="input-sms-message">
+                      <span class="question-heading">
+                        Message
+                      </span>
+                    </label>
+                    <input type="text" name="sms-message" id="input-sms-message" class="text-box" value=""/>
+                </div>
+                <button class="button-save">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
