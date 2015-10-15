@@ -1,5 +1,5 @@
 from . import get_cookie_by_name
-from app import User
+from app import data_api_client
 
 
 def user():
@@ -29,7 +29,7 @@ def test_should_render_login_page(notify_frontend):
 
 
 def test_should_redirect_to_dashboard_on_login(notify_frontend, mocker):
-    mocker.patch('app.data_api_client.get_user_by_email_address', return_value=user())
+    mocker.patch('app.data_api_client.authenticate_user', return_value=user())
     res = notify_frontend.test_client().post(
         "/admin/login",
         data={
@@ -40,10 +40,11 @@ def test_should_redirect_to_dashboard_on_login(notify_frontend, mocker):
     assert res.status_code == 302
     assert res.location == 'http://localhost/admin/dashboard'
     assert 'Secure;' in res.headers['Set-Cookie']
+    data_api_client.authenticate_user.assert_called_once_with("valid@email.com", "1234567890")
 
 
 def test_should_not_allow_login_if_user_cant_be_found(notify_frontend, mocker):
-    mocker.patch('app.data_api_client.get_user_by_email_address', return_value=None)
+    mocker.patch('app.data_api_client.authenticate_user', return_value=None)
     response = notify_frontend.test_client().post(
         "/admin/login",
         data={
@@ -69,7 +70,7 @@ def test_should_show_errors_on_form_validation_failure(notify_frontend):
 
 
 def test_ok_next_url_redirects_on_login(notify_frontend, mocker):
-    mocker.patch('app.data_api_client.get_user_by_email_address', return_value=user())
+    mocker.patch('app.data_api_client.authenticate_user', return_value=user())
     res = notify_frontend.test_client().post(
         "/admin/login?next=/admin/3fa",
         data={
@@ -81,7 +82,7 @@ def test_ok_next_url_redirects_on_login(notify_frontend, mocker):
 
 
 def test_bad_next_url_takes_user_to_service_page(notify_frontend, mocker):
-    mocker.patch('app.data_api_client.get_user_by_email_address', return_value=user())
+    mocker.patch('app.data_api_client.authenticate_user', return_value=user())
     res = notify_frontend.test_client().post(
         "/admin/login?next=http://badness.com",
         data={

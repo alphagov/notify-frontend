@@ -18,7 +18,7 @@ def process_login():
     next_url = request.args.get('next')
     form = LoginForm()
     if form.validate_on_submit():
-        user_json = data_api_client.get_user_by_email_address(form.email_address.data)
+        user_json = data_api_client.authenticate_user(form.email_address.data, form.password.data)
         if user_json:
             user = User.from_json(user_json)
             login_user(user)

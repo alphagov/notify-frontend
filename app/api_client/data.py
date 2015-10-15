@@ -29,7 +29,7 @@ class DataAPIClient(BaseAPIClient):
             return self._post(
                 '/users/auth',
                 data={
-                    "authUsers": {
+                    "userAuthentication": {
                         "emailAddress": email_address,
                         "password": password,
                     }
