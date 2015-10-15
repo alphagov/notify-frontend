@@ -93,7 +93,8 @@ def test_bad_next_url_takes_user_to_service_page(notify_frontend, mocker):
     assert res.location == 'http://localhost/admin/dashboard'
 
 
-def test_should_have_cookie_on_redirect(notify_frontend):
+def test_should_have_cookie_on_redirect(notify_frontend, mocker):
+    mocker.patch('app.data_api_client.authenticate_user', return_value=user())
     notify_frontend.config['SESSION_COOKIE_DOMAIN'] = '127.0.0.1'
     notify_frontend.config['SESSION_COOKIE_SECURE'] = True
     res = notify_frontend.test_client().post(
