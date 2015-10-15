@@ -6,6 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     DEBUG = True
     WTF_CSRF_ENABLED = True
+    NOTIFY_HTTP_PROTO = 'http'
     SESSION_COOKIE_NAME = 'notify_admin_session'
     SESSION_COOKIE_PATH = '/admin'
     SESSION_COOKIE_HTTPONLY = True
@@ -36,6 +37,7 @@ class Development(Config):
 
 class Live(Config):
     DEBUG = False
+    NOTIFY_HTTP_PROTO = 'https'
 
 
 class Staging(Config):

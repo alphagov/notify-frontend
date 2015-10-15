@@ -10,6 +10,7 @@ from flask_login import LoginManager
 from app.api_client import DataAPIClient
 from app.user import User
 from config import configs
+from . import proxy_fix
 
 csrf = CsrfProtect()
 login_manager = LoginManager()
@@ -31,6 +32,7 @@ def create_app(config_name):
     csrf.init_app(application)
     login_manager.init_app(application)
     data_api_client.init_app(application)
+    proxy_fix.init_app(application)
 
     from .main import main as main_blueprint
     application.permanent_session_lifetime = timedelta(hours=1)
