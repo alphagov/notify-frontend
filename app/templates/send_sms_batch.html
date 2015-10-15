@@ -1,0 +1,25 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "Send SMS in bulk"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    <form autocomplete="off" action="" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <button class="button-save">Choose a CSV or Spreadsheet to upload</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
