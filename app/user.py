@@ -4,7 +4,7 @@ class User():
         self.email_address = email_address
         self.role = role
         self.locked = locked
-        self.organisation = organisation_id
+        self.organisation_id = organisation_id
 
     def is_authenticated(self):
         return True

@@ -15,4 +15,8 @@ def view_notification_batch():
 @login_required
 def view_notification(job_id):
     notifications = data_api_client.get_notifications_by_job_id(job_id)
-    return render_template("view-notification.html", job_id=job_id, notifications=notifications['notifications'], **get_template_data())
+    return render_template(
+        "view-notification.html",
+        job_id=job_id,
+        notifications=notifications['notifications'],
+        **get_template_data())
