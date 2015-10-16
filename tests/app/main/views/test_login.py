@@ -11,10 +11,7 @@ def user():
             "failedLoginCount": 0,
             "id": 1,
             "locked": False,
-            "organisation": {
-                "id": 1,
-                "name": "GDS Notify"
-            },
+            "organisationId": 1,
             "passwordChangedAt": "2015-10-15T08:12:02.693378Z",
             "role": "admin",
             "updatedAt": "2015-10-15T08:12:02.693378Z"

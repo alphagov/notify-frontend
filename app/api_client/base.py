@@ -22,13 +22,13 @@ class BaseAPIClient(object):
     def _get(self, url, params=None):
         return self._request("GET", url, params=params)
 
-    def _post(self, url, data):
-        return self._request("POST", url, data=data)
+    def _post(self, url, data, token=None):
+        return self._request("POST", url, data=data, token=token)
 
     def _delete(self, url, data=None):
         return self._request("DELETE", url, data=data)
 
-    def _request(self, method, url, data=None, params=None):
+    def _request(self, method, url, data=None, params=None, token=None):
         if not self.enabled:
             return None
 
@@ -37,7 +37,7 @@ class BaseAPIClient(object):
         print("API request %s %s", method, url)
         headers = {
             "Content-type": "application/json",
-            "Authorization": "Bearer {}".format(self.auth_token)
+            "Authorization": "Bearer {}".format(token if token else self.auth_token)
         }
 
         try:

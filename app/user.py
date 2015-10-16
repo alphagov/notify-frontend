@@ -1,10 +1,10 @@
 class User():
-    def __init__(self, user_id, email_address, role, locked, organisation):
+    def __init__(self, user_id, email_address, role, locked, organisation_id):
         self.id = user_id
         self.email_address = email_address
         self.role = role
         self.locked = locked
-        self.organisation = organisation
+        self.organisation_id = organisation_id
 
     def is_authenticated(self):
         return True
@@ -30,7 +30,7 @@ class User():
         return User(
             user_id=user["id"],
             email_address=user['emailAddress'],
-            organisation=user['organisation'],
+            organisation_id=user['organisationId'],
             locked=user['locked'],
             role=user['role']
         )

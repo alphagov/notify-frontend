@@ -12,3 +12,4 @@ markdown==2.6.2
 
 # Required for SNI to work in requests
 pyOpenSSL==0.14
+pytz==2015.4

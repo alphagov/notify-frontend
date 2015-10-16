@@ -11,3 +11,12 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[
         DataRequired(message='Please enter your password')
     ])
+
+
+class SmsForm(Form):
+    mobile_number = StringField('Mobile number', validators=[
+        DataRequired(message='Mobile number cannot be empty')
+    ])
+    message = StringField('Message', validators=[
+        DataRequired(message='Message cannot be empty')
+    ])

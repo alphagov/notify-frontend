@@ -4,17 +4,34 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": url_for('main.view_dashboard'),
+        "label": session['organisation_name']
+      },
+      {
+        "link": url_for('main.view_all_services'),
+        "label": 'Services'
+      },
+        {
+        "link": url_for('main.view_all_jobs', service_id=1),
+        "label": 'Jobs'
+      },
+    {
+        "label": 'Notification'
+      }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
 <div class="page-container">
-    {%
-    with
-    heading = "Service: dogs rentals"
-    %}
-    {% include "toolkit/page-heading.html" %}
-    {% endwith %}
 
 
 <h2 class="summary-item-heading">
-    Notification
+    Notifications
 </h2>
 
 
@@ -25,33 +42,38 @@ GOV.UK Notify
     <thead class="summary-item-field-headings-visible">
       <tr>
 
-          <th scope="col" class="summary-item-field-heading-first">
+          <th scope="col" class="summary-item-field-heading">
 
-              Who
-
-          </th>
-
-          <th scope="col" class="summary-item-field-heading-first">
-
-              Type
-
-          </th>
-
-         <th scope="col" class="summary-item-field-heading-first">
-
-              Contact Details
+              to
 
           </th>
 
           <th scope="col" class="summary-item-field-heading">
 
-              What
+              message
+
+          </th>
+
+         <th scope="col" class="summary-item-field-heading">
+
+              created at
 
           </th>
 
           <th scope="col" class="summary-item-field-heading">
 
-              When
+              delivered at
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              status
+
+          </th>
+          <th scope="col" class="summary-item-field-heading">
+
+              method
 
           </th>
 
@@ -62,35 +84,42 @@ GOV.UK Notify
 
 
 
-  <tr class="summary-item-row">
+   {% for notification in notifications %}
+    <tr class="summary-item-row">
 
-       <td class="summary-item-field-first-wider">
-    <span>
-    <a href="#">John Smith</a>
-  </span>
-  </td>
-
-        <td class="summary-item-field-first-wider">
-    <span>
-    <a href="#">SMS</a>
-  </span>
-  </td>
-
-    <td class="summary-item-field-first-wider">
-    <span>
-    <a href="#">+44 123456789</a>
-  </span>
-  </td>
-      <td class="summary-item-field-first-wider">
-    <span>
-    <a href="#">This is the message that we sent</a>
-  </span>
-  </td>
     <td class="summary-item-field">
     <span>
-    2015-01-01 12:45
-  </span>
-  </td>
+    {{ notification.to }}
+    </span>
+    </td>
+    <td class="summary-item-field">
+    <span>
+    {{ notification.message }}
+    </span>
+    </td>
+
+    <td class="summary-item-field">
+    <span>
+    {{ notification.createdAt|datetimeformat }}
+    </span>
+    </td>
+    <td class="summary-item-field">
+    <span>
+    {{ notification.deliveredAt|datetimeformat }}
+    </span>
+    </td>
+    <td class="summary-item-field">
+    <span>
+    {{ notification.status }}
+    </span>
+    </td>
+    <td class="summary-item-field">
+    <span>
+    {{ notification.method }}
+    </span>
+    </td>
+    </tr>
+    {% endfor %}
 
   </tr>
 
