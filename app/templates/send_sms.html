@@ -4,7 +4,35 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": url_for('main.view_dashboard'),
+        "label": session['organisation_name']
+      },
+      {
+        "link": url_for('main.view_all_services'),
+        "label": 'Services'
+      },
+    {
+        "link": url_for('main.view_all_jobs', service_id=service_id),
+        "label": 'Jobs'
+      },
+    {
+        "label": 'Send an SMS'
+      }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
+
+
 <div class="page-container">
+
+
     {%
     with
     heading = "Send an SMS"
@@ -14,25 +42,48 @@ GOV.UK Notify
 
 
     <form autocomplete="off" action="" method="post">
+        {{ form.hidden_tag() }}
         <div class="grid-row">
             <div class="column-two-thirds">
-                <div class="question" id="mobile-number">
-                    <label for="input-mobile-number">
-                      <span class="question-heading">
-                        Mobile number
-                      </span>
-                    </label>
-                    <input type="text" name="mobile-number" id="input-mobile-number" class="text-box" value=""/>
+                {% if form.mobile_number.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.mobile_number.label(class="question-heading-with-hint") }}
+                        <p class="hint">
+                            Enter the mobile number you want to message
+                        </p>
+                        {% if form.message.errors %}
+                        <p class="validation-message" id="error-email-address-textbox">
+                            {% for error in form.mobile_number.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.mobile_number(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.mobile_number.errors %}
                 </div>
-                  <div class="question" id="sms-message">
-                    <label for="input-sms-message">
-                      <span class="question-heading">
-                        Message
-                      </span>
-                    </label>
-                    <input type="text" name="sms-message" id="input-sms-message" class="text-box" value=""/>
+                {% endif %}
+
+                {% if form.message.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.message.label(class="question-heading-with-hint") }}
+                        <p class="hint">
+                            Enter the message you want to send
+                        </p>
+                        {% if form.message.errors %}
+                        <p class="validation-message" id="error-message-textbox">
+                            {% for error in form.message.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.message(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.message.errors %}
                 </div>
-                <button class="button-save">Submit</button>
+                {% endif %}
+
+                <button class="button-save">Send</button>
             </div>
         </div>
     </form>

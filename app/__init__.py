@@ -1,5 +1,7 @@
 import os
-from datetime import timedelta
+from datetime import timedelta, datetime
+import pytz
+from flask import Flask, request, redirect, abort, session
 
 from flask import Flask, request, redirect
 
@@ -12,13 +14,16 @@ from app.user import User
 from config import configs
 from . import proxy_fix
 
+DISPLAY_DATETIME_FORMAT = '%A %d %B %Y at %H:%M'
+DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
+EUROPE_LONDON = pytz.timezone("Europe/London")
+
 csrf = CsrfProtect()
 login_manager = LoginManager()
 data_api_client = DataAPIClient()
 
 
 def create_app(config_name):
-
     application = Flask(
         __name__,
         static_folder='static/',
@@ -30,6 +35,22 @@ def create_app(config_name):
 
     init_app(application)
     csrf.init_app(application)
+
+    @csrf.error_handler
+    def csrf_handler(reason):
+        if 'user_id' not in session:
+            application.logger.info(
+                u'csrf.session_expired: Redirecting user to log in page'
+            )
+
+            return application.login_manager.unauthorized()
+
+        application.logger.info(
+            u'csrf.invalid_token: Aborting request, user_id: {user_id}',
+            extra={'user_id': session['user_id']})
+
+        abort(400, reason)
+
     login_manager.init_app(application)
     data_api_client.init_app(application)
     proxy_fix.init_app(application)
@@ -45,6 +66,8 @@ def create_app(config_name):
     def remove_trailing_slash():
         if request.path != '/' and request.path.endswith('/'):
             return redirect(request.path[:-1], code=301)
+
+    application.add_template_filter(datetimeformat)
 
     return application
 
@@ -103,3 +126,17 @@ def convert_to_number(value):
         return float(value) if "." in value else int(value)
     except (TypeError, ValueError):
         return value
+
+
+def datetimeformat(value, default_value=""):
+    return _format_date(value, default_value, DISPLAY_DATETIME_FORMAT)
+
+
+def _format_date(value, default_value, fmt):
+    if not value:
+        return default_value
+    if not isinstance(value, datetime):
+        value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
+    if value.tzinfo is None:
+        value = pytz.utc.localize(value)
+    return value.astimezone(EUROPE_LONDON).strftime(fmt)

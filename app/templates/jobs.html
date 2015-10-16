@@ -13,8 +13,12 @@ GOV.UK Notify
         "link": url_for('main.view_dashboard'),
         "label": session['organisation_name']
       },
-    {
+      {
+        "link": url_for('main.view_all_services'),
         "label": 'Services'
+      },
+    {
+        "label": 'Jobs'
       }
     ]
   %}
@@ -25,14 +29,12 @@ GOV.UK Notify
 <div class="page-container">
     {%
     with
-    heading = "Services"
+    heading = "Jobs"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
 
-
-  {% if services|length > 0 %}
   <table class="summary-item-body">
     <thead class="summary-item-field-headings-visible">
       <tr>
@@ -60,22 +62,22 @@ GOV.UK Notify
     <tbody>
 
 
-    {% for service in services %}
+    {% for job in jobs %}
     <tr class="summary-item-row">
 
     <td class="summary-item-field-first-wider">
     <span>
-    {{ service.name }}
+    {{ job.name }}
     </span>
     </td>
     <td class="summary-item-field">
     <span>
-    {{ service.createdAt|datetimeformat }}
+    {{ job.createdAt|datetimeformat }}
     </span>
     </td>
     <td class="summary-item-field-with-action">
     <span>
-    <a href="{{ url_for('main.view_all_jobs', service_id=service.id) }}">Jobs</a>
+    <a href="{{ url_for('main.view_notification', job_id=job.id) }}">View</a>
     </span>
     </td>
 
@@ -85,10 +87,14 @@ GOV.UK Notify
 
     </tbody>
   </table>
-    {% else %}
-    <p>No services for this organisation</p>
-    {% endif %}
 
+    {%
+    with
+        url = url_for('main.send_sms', service_id=service_id),
+        label = "New message"
+    %}
+    {% include "toolkit/link-button.html" %}
+    {% endwith %}
 
 </div>
 {% endblock %}

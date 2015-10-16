@@ -9,8 +9,7 @@ GOV.UK Notify
   {%
     with items = [
       {
-        "link": "/",
-        "label": session['organisation']
+        "label": session['organisation_name']
       }
     ]
   %}
@@ -32,7 +31,7 @@ GOV.UK Notify
   items = [
     {
         "subtext": "for this organisation",
-        "link": url_for('main.view_service'),
+        "link": url_for('main.view_all_services'),
         "title": "See all services"
     },
     {
