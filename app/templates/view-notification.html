@@ -62,6 +62,12 @@ GOV.UK Notify
 
           <th scope="col" class="summary-item-field-heading">
 
+              sent at
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
               delivered at
 
           </th>
@@ -101,6 +107,11 @@ GOV.UK Notify
     <td class="summary-item-field">
     <span>
     {{ notification.createdAt|datetimeformat }}
+    </span>
+    </td>
+        <td class="summary-item-field">
+    <span>
+    {{ notification.sentAt|datetimeformat }}
     </span>
     </td>
     <td class="summary-item-field">
