@@ -20,3 +20,9 @@ class SmsForm(Form):
     message = StringField('Message', validators=[
         DataRequired(message='Message cannot be empty')
     ])
+
+
+class ServiceForm(Form):
+    service_name = StringField('Service name', validators=[
+        DataRequired(message='Service name is required')
+    ])

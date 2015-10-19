@@ -18,6 +18,7 @@ GOV.UK Notify
 {% endblock %}
 
 <div class="page-container">
+{% if current_user.has_role('platform-admin') %}
     {%
     with
     heading = "Dashboard"
@@ -43,6 +44,33 @@ GOV.UK Notify
 %}
   {% include "toolkit/browse-list.html" %}
 {% endwith %}
+{% else %}
+    {%
+    with
+    heading = "Dashboard"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    {%
+  with
+  items = [
+    {
+        "subtext": "for this organisation",
+        "link": url_for('main.view_all_my_services'),
+        "title": "See all my services"
+    },
+    {
+        "link": url_for('main.view_create_service'),
+        "subtext": "prior to sending notifications",
+        "title": "Create a new service"
+    }
+]
+%}
+    {% include "toolkit/browse-list.html" %}
+    {% endwith %}
+{% endif %}
 
 </div>
 {% endblock %}

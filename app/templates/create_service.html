@@ -12,59 +12,41 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+    {% if form.errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            There was a problem with your answer to the following questions
+        </h3>
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ form[field_name].label }}</a>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
 
     <form autocomplete="off" action="" method="post">
         <div class="grid-row">
             <div class="column-two-thirds">
-                <div class="question" id="servicename">
-                    <label for="servicename">
-                      <span class="question-heading">
-                        Service name
-                      </span>
-                    </label>
-                    <input type="text" name="servicename" id="input-servicename" class="text-box" value=""/>
+                {{ form.hidden_tag() }}
+
+                {% if form.service_name.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.service_name.label(class="question-heading") }}
+                        {% if form.service_name.errors %}
+                        <p class="validation-message" id="error-service-name-textbox">
+                            {% for error in form.service_name.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.service_name(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.service_name.errors %}
                 </div>
-                <div class="question" id="name">
-                    <label for="name">
-                      <span class="question-heading">
-                        Name
-                      </span>
-                    </label>
-                    <input type="text" name="name" id="input-name" class="text-box" value=""/>
-                </div>
-                <div class="question" id="email">
-                    <label for="email">
-                      <span class="question-heading">
-                        Email address
-                      </span>
-                    </label>
-                    <input type="text" name="email" id="input-email" class="text-box" value=""/>
-                </div>
-                <div class="question" id="mobile">
-                    <label for="mobile">
-                      <span class="question-heading">
-                        Mobile number
-                      </span>
-                    </label>
-                    <input type="text" name="mobile" id="input-name" class="text-box" value=""/>
-                </div>
-                <div class="question" id="password">
-                    <label for="input-password">
-                      <span class="question-heading">
-                        Password
-                      </span>
-                    </label>
-                    <input type="text" name="repeatpassword" id="input-repeatpassword" class="text-box" value=""/>
-                </div>
-                <div class="question" id="repeatpassword">
-                    <label for="input-repeatpassword">
-                      <span class="question-heading">
-                        Repeat password
-                      </span>
-                    </label>
-                    <input type="text" name="repeatpassword" id="input-repeatpassword" class="text-box" value=""/>
-                </div>
-                <button class="button-save">Submit</button>
+                {% endif %}
+                <button class="button-save">Create</button>
             </div>
         </div>
     </form>
