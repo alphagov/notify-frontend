@@ -1,0 +1,33 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    {%
+    with
+    heading = "API details"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+    <p>API key (test): 4fac39374cabffd300283749405</p>
+
+    <p>API endpoint: https://notify-admin.herokuapp.com/api/</p>p>
+
+    <p><a href="">API documentation</a>
+
+
+    <form autocomplete="off" action="" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <p>If you regenerate your key, your application will need to be updated before you can send any more notifications.
+
+                <button class="button-save">Regenerate key</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
