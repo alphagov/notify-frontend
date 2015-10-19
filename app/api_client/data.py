@@ -53,6 +53,16 @@ class DataAPIClient(BaseAPIClient):
     def get_services_by_organisation_id(self, organisation_id):
         return self._get("/organisation/{}/services".format(organisation_id))
 
+    def create_service(self, service_name, organisation_id):
+        return self._post(
+            '/service',
+            data={
+                "service": {
+                    "name": service_name,
+                    "organisationId": organisation_id
+                }
+            })
+
     def get_jobs_by_service_id(self, service_id):
         return self._get("/service/{}/jobs".format(service_id))
 
