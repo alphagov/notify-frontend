@@ -10,7 +10,6 @@ from app.main.auth import role_required
 @login_required
 def view_service(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    print(service['service'])
     return render_template("service.html", service=service['service'], **get_template_data())
 
 
