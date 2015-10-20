@@ -6,10 +6,12 @@ from flask_login import login_required, current_user
 from app.main.auth import role_required
 
 
-@main.route('/service', methods=['GET'])
+@main.route('/service/<int:service_id>', methods=['GET'])
 @login_required
-def view_service():
-    return render_template("service.html", **get_template_data())
+def view_service(service_id):
+    service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
+    print(service['service'])
+    return render_template("service.html", service=service['service'], **get_template_data())
 
 
 @main.route('/services', methods=['GET'])

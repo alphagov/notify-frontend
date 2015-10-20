@@ -47,19 +47,20 @@ class DataAPIClient(BaseAPIClient):
                 raise
         return None
 
-    def get_token_for_service(self, service_id):
-        return self._get("/service/{}/token".format(service_id))
+    def get_service_by_user_id_and_service_id(self, user_id, service_id):
+        return self._get("/user/{}/service/{}".format(user_id, service_id))
 
-    def get_services_by_organisation_id(self, organisation_id):
-        return self._get("/organisation/{}/services".format(organisation_id))
+    def get_services_by_user_id(self, user_id):
+        return self._get("/user/{}/services".format(user_id))
 
-    def create_service(self, service_name, organisation_id):
+    def create_service(self, service_name, organisation_id, user_id):
         return self._post(
             '/service',
             data={
                 "service": {
                     "name": service_name,
-                    "organisationId": organisation_id
+                    "organisationId": organisation_id,
+                    "userId": user_id
                 }
             })
 

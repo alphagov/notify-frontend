@@ -11,11 +11,11 @@ GOV.UK Notify
     with items = [
       {
         "link": url_for('main.view_dashboard'),
-        "label": session['organisation_name']
+        "label": "Dashboard"
       },
       {
-        "link": url_for('main.view_all_services'),
-        "label": 'Services'
+        "link": url_for('main.view_service', service_id=service.id),
+        "label": service.name
       },
     {
         "label": 'History'
@@ -77,7 +77,7 @@ GOV.UK Notify
     </td>
     <td class="summary-item-field-with-action">
     <span>
-    <a href="{{ url_for('main.view_notification', job_id=job.id) }}">View</a>
+    <a href="{{ url_for('main.view_notification', service_id=service.id, job_id=job.id) }}">View</a>
     </span>
     </td>
 
@@ -87,6 +87,7 @@ GOV.UK Notify
 
     </tbody>
   </table>
+
 
 </div>
 {% endblock %}

@@ -11,10 +11,10 @@ GOV.UK Notify
     with items = [
       {
         "link": url_for('main.view_dashboard'),
-        "label": session['organisation_name']
+        "label": "Dashboard"
       },
     {
-        "label": 'Services'
+        "label": service.name
       }
     ]
   %}
@@ -25,23 +25,16 @@ GOV.UK Notify
 <div class="page-container">
     {%
     with
-    heading = "Services"
+    heading = service.name
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
 
 
-  {% if services|length > 0 %}
   <table class="summary-item-body">
     <thead class="summary-item-field-headings-visible">
       <tr>
-
-          <th scope="col" class="summary-item-field-heading-first">
-
-              Name
-
-          </th>
 
           <th scope="col" class="summary-item-field-heading">
 
@@ -72,14 +65,8 @@ GOV.UK Notify
     <tbody>
 
 
-    {% for service in services %}
     <tr class="summary-item-row">
 
-    <td class="summary-item-field-first-wider">
-    <span>
-    {{ service.name }}
-    </span>
-    </td>
     <td class="summary-item-field-first-wider">
     <span>
     {{ service.createdAt|datetimeformat }}
@@ -102,15 +89,10 @@ GOV.UK Notify
     </td>
 
     </tr>
-    {% endfor %}
 
 
     </tbody>
   </table>
-    {% else %}
-    <p>No services for this organisation</p>
-    {% endif %}
-
 
 </div>
 {% endblock %}
