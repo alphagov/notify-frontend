@@ -13,12 +13,7 @@ GOV.UK Notify
     {% endwith %}
 
 
-    <form autocomplete="off" action="" method="post">
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <button class="button-save">Choose a CSV or Spreadsheet to upload</button>
-            </div>
-        </div>
+    <form action="/admin/send-sms-batch" method="post" class="dropzone" id="bulk-sms">
     </form>
 
 </div>
