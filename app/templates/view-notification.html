@@ -9,14 +9,14 @@ GOV.UK Notify
     with items = [
       {
         "link": url_for('main.view_dashboard'),
-        "label": session['organisation_name']
+        "label": "Dashboard"
       },
       {
-        "link": url_for('main.view_all_services'),
-        "label": 'Services'
+        "link": url_for('main.view_service', service_id=service.id),
+        "label": service.name
       },
         {
-        "link": url_for('main.view_all_jobs', service_id=1),
+        "link": url_for('main.view_all_jobs', service_id=service.id),
         "label": 'Jobs'
       },
     {

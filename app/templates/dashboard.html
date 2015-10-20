@@ -6,71 +6,64 @@ GOV.UK Notify
 
 {% block content %}
 {% block breadcrumb %}
-  {%
-    with items = [
-      {
-        "label": session['organisation_name']
-      }
-    ]
-  %}
-    {% include "toolkit/breadcrumb.html" %}
-  {% endwith %}
+{%
+with items = [
+{
+"label": "Dashboard"
+}
+]
+%}
+{% include "toolkit/breadcrumb.html" %}
+{% endwith %}
 {% endblock %}
 
 <div class="page-container">
-{% if current_user.has_role('platform-admin') %}
-    {%
-    with
-    heading = "Dashboard"
-    %}
-    {% include "toolkit/page-heading.html" %}
-    {% endwith %}
 
+    <header class="page-heading page-heading-with-context page-heading-without-breadcrumb"><p class="context">
+        {{ current_user.email_address }}
+    </p>
 
-    {%
-  with
-  items = [
-    {
-        "subtext": "for this organisation",
-        "link": url_for('main.view_all_services'),
-        "title": "See all services"
-    },
-    {
-        "link": url_for('main.view_create_service'),
-        "subtext": "prior to sending notifications",
-        "title": "Create a new service"
-    }
-]
-%}
-  {% include "toolkit/browse-list.html" %}
-{% endwith %}
-{% else %}
-    {%
-    with
-    heading = "Dashboard"
-    %}
-    {% include "toolkit/page-heading.html" %}
-    {% endwith %}
+        <h1>
+            Dashboard
+        </h1>
+    </header>
 
+    <ul>
+        {% for service in services %}
+        <li class="browse-list-item">
+            <a class="browse-list-item-link" href="{{ url_for('.view_service', service_id=service.id)}}"><span> {{ service.name }}</span></a>
 
-    {%
-  with
-  items = [
-    {
-        "subtext": "for this organisation",
-        "link": url_for('main.view_all_my_services'),
-        "title": "See all my services"
-    },
-    {
-        "link": url_for('main.view_create_service'),
-        "subtext": "prior to sending notifications",
-        "title": "Create a new service"
-    }
-]
-%}
-    {% include "toolkit/browse-list.html" %}
-    {% endwith %}
-{% endif %}
+            <p class="browse-list-item-subtext">
+                Send an <a href="{{ url_for('.send_sms', service_id=service.id)}}">SMS</a>
+            </p>
 
+            <p class="browse-list-item-subtext">
+                Send an <a href="{{ url_for('.render_send_sms_batch', service_id=service.id)}}">SMS Batch</a>
+            </p>
+
+            <p class="browse-list-item-subtext">
+                Send an <a href="{{ url_for('.render_send_email_batch', service_id=service.id)}}">email batch</a>
+            </p>
+
+            <p class="browse-list-item-subtext">
+                View notification <a href="{{ url_for('.view_all_jobs', service_id=service.id)}}">history</a>
+            </p>
+
+             <p class="browse-list-item-subtext">
+                Manage <a href="#">users</a>
+            </p>
+
+             <p class="browse-list-item-subtext">
+                Manage <a href="{{ url_for('.view_api', service_id=service.id)}}">API keys</a>
+            </p>
+
+        </li>
+        {% endfor %}
+    </ul>
+    <header class="page-heading-smaller">
+        <p class="context">
+            <a href="{{ url_for('.view_create_service') }}">Create new service</a>
+        </p>
+    </header>
 </div>
 {% endblock %}
