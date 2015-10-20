@@ -9,4 +9,5 @@ from flask_login import login_required, current_user
 @login_required
 def view_service_users(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    return render_template("users.html", service=service['service'], **get_template_data())
+    users = data_api_client.get_users_by_service_id(service_id)
+    return render_template("users.html", service=service['service'], users=users['users'], **get_template_data())

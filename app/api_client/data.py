@@ -32,6 +32,9 @@ class DataAPIClient(BaseAPIClient):
                 raise
         return None
 
+    def get_users_by_service_id(self, service_id):
+        return self._get("/service/{}/users".format(service_id))
+
     def authenticate_user(self, email_address, password):
         try:
             return self._post(

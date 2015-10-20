@@ -44,6 +44,12 @@ GOV.UK Notify
 
           </th>
 
+           <th scope="col" class="summary-item-field-heading">
+
+              Role
+
+          </th>
+
           <th scope="col" class="summary-item-field-heading">
 
               Active
@@ -67,25 +73,32 @@ GOV.UK Notify
     <tbody>
 
 
+    {% for user in users %}
     <tr class="summary-item-row">
 
     <td class="summary-item-field-first-wider">
     <span>
-    me@there.com
+    {{ user.emailAddress }}
     </span>
     </td>
     <td class="summary-item-field-first">
     <span>
-    True
+    {{ user.role }}
     </span>
     </td>
     <td class="summary-item-field-first">
     <span>
-    False
+    {{ user.active }}
+    </span>
+    </td>
+    <td class="summary-item-field-first">
+    <span>
+    {{ user.locked }}
     </span>
     </td>
     <td class="summary-item-field-with-action">
     <span>
+    {% if current_user.email_address != user.emailAddress %}
     {%
     with
         type = "destructive",
@@ -93,11 +106,12 @@ GOV.UK Notify
         %}
     {% include "toolkit/button.html" %}
     {% endwith %}
+        {% endif %}
     </span>
     </td>
 
     </tr>
-
+    {% endfor %}
 
     </tbody>
   </table>
