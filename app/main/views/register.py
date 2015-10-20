@@ -20,4 +20,3 @@ def process_registration():
             'register.html',
             **get_template_data(form=form)
         ), 400
-
