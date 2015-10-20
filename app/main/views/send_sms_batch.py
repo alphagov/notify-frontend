@@ -13,4 +13,3 @@ def send_sms_batch():
 @main.route('/send-sms-batch', methods=['POST'])
 def process_sms_bulk():
     return render_template("send_sms_batch.html", **get_template_data())
-
