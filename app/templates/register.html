@@ -10,28 +10,9 @@ GOV.UK Notify
 
     {%
     with
-    heading = "Administrator login"
+    heading = "Register"
     %}
     {% include "toolkit/page-heading.html" %}
-    {% endwith %}
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    {% if category == 'error' %}
-    <div class="banner-destructive-without-action">
-            {% if message == 'no_account' %}
-            <p class="banner-message">
-                Make sure you've entered the right email address and password.
-                Accounts are locked after 5 failed attempts. If you think your
-                account has been locked, email
-                <a href="mailto:notify@digital.cabinet-office.gov.uk">notify@digital.cabinet-office.gov.ukk</a>.
-            </p>
-            {% endif %}
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
     {% endwith %}
 
 
@@ -54,7 +35,39 @@ GOV.UK Notify
             <div class="column-two-thirds">
                 {{ form.hidden_tag() }}
 
-                {% if form.email_address.errors %}
+                {% if form.name.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.name.label(class="question-heading") }}
+                        {% if form.name.errors %}
+                        <p class="validation-message" id="error-name-textbox">
+                            {% for error in form.name.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.name(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.name.errors %}
+                </div>
+                {% endif %}
+
+                 {% if form.mobile_number.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.mobile_number.label(class="question-heading") }}
+                        {% if form.mobile_number.errors %}
+                        <p class="validation-message" id="error-mobile-number-textbox">
+                            {% for error in form.mobile_number.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.mobile_number(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.mobile_number.errors %}
+                </div>
+                {% endif %}
+
+                 {% if form.email_address.errors %}
                 <div class="validation-wrapper">
                     {% endif %}
                     <div class="question">
@@ -86,14 +99,10 @@ GOV.UK Notify
                 </div>
                 {% endif %}
 
-                <button class="button-save">Log in</button>
+                <button class="button-save">Register</button>
             </div>
         </div>
     </form>
-    <header class="page-heading-smaller">
-        <p class="context">
-            <a href="{{ url_for('.render_registration_page') }}">Register</a>
-        </p>
-    </header>
+
 </div>
 {% endblock %}

@@ -13,6 +13,22 @@ class LoginForm(Form):
     ])
 
 
+class RegistrationForm(Form):
+    name = StringField('Name', validators=[
+        DataRequired(message='Email cannot be empty')
+    ])
+    email_address = StringField('Email address', validators=[
+        DataRequired(message='Email cannot be empty'),
+        Email(message='Please enter a valid email address')
+    ])
+    mobile_number = StringField('Mobile number', validators=[
+        DataRequired(message='Mobile number cannot be empty')
+    ])
+    password = PasswordField('Password', validators=[
+        DataRequired(message='Please enter your password')
+    ])
+
+
 class SmsForm(Form):
     mobile_number = StringField('Mobile number', validators=[
         DataRequired(message='Mobile number cannot be empty')
