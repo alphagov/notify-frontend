@@ -1,0 +1,110 @@
+{% extends "_base_page.html" %}
+{% block page_title %}
+GOV.UK Notify
+{% endblock %}
+
+
+
+{% block content %}
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": url_for('main.view_dashboard'),
+        "label": "Dashboard"
+      },
+     {
+        "link": url_for('main.view_service', service_id=service.id),
+        "label": service.name
+      },
+    {
+        "label": "users"
+    }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
+
+<div class="page-container">
+    {%
+    with
+    heading = "Users"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+  <table class="summary-item-body">
+    <thead class="summary-item-field-headings-visible">
+      <tr>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              Email address
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              Active
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              Locked
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              <span class="hidden">Action</span>
+
+          </th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+
+    <tr class="summary-item-row">
+
+    <td class="summary-item-field-first-wider">
+    <span>
+    me@there.com
+    </span>
+    </td>
+    <td class="summary-item-field-first">
+    <span>
+    True
+    </span>
+    </td>
+    <td class="summary-item-field-first">
+    <span>
+    False
+    </span>
+    </td>
+    <td class="summary-item-field-with-action">
+    <span>
+    {%
+    with
+        type = "destructive",
+        label = "Remove this user"
+        %}
+    {% include "toolkit/button.html" %}
+    {% endwith %}
+    </span>
+    </td>
+
+    </tr>
+
+
+    </tbody>
+  </table>
+ <header class="page-heading-smaller">
+        <p class="context">
+            <a href="{{ url_for('main.render_invite_a_user', service_id=service.id)}}">Invite a user</a>
+        </p>
+    </header>
+</div>
+{% endblock %}
