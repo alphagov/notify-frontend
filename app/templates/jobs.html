@@ -18,7 +18,7 @@ GOV.UK Notify
         "label": 'Services'
       },
     {
-        "label": 'Jobs'
+        "label": 'Service history'
       }
     ]
   %}
@@ -87,14 +87,6 @@ GOV.UK Notify
 
     </tbody>
   </table>
-
-    {%
-    with
-        url = url_for('main.send_sms', service_id=service_id),
-        label = "New message"
-    %}
-    {% include "toolkit/link-button.html" %}
-    {% endwith %}
 
 </div>
 {% endblock %}
