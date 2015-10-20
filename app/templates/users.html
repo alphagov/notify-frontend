@@ -103,7 +103,7 @@ GOV.UK Notify
   </table>
  <header class="page-heading-smaller">
         <p class="context">
-            <a href="">Invite a user</a>
+            <a href="{{ url_for('main.render_invite_a_user', service_id=service.id)}}">Invite a user</a>
         </p>
     </header>
 </div>
