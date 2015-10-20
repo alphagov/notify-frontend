@@ -9,5 +9,5 @@ def add_cache_control(response):
     return response
 
 from app.main.views import login, service, notification, create_service, threefa, dashboard, send_sms, \
-    send_sms_batch, send_email_batch, jobs, api, register
+    send_sms_batch, send_email_batch, jobs, api, register, users
 from app.main import errors
