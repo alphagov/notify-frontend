@@ -20,7 +20,10 @@ def create_service():
     form = ServiceForm()
     if form.validate_on_submit():
         try:
-            data_api_client.create_service(form.service_name.data, int(session['organisation_id']), int(session['user_id']))
+            data_api_client.create_service(
+                form.service_name.data,
+                int(session['organisation_id']),
+                int(session['user_id']))
         except APIError as ex:
             print(ex.message)
         return redirect(url_for('.view_dashboard'))
