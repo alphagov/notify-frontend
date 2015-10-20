@@ -51,6 +51,18 @@ GOV.UK Notify
 
           <th scope="col" class="summary-item-field-heading">
 
+              Active
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
+              Daily limit
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
               <span class="hidden">Action</span>
 
           </th>
@@ -68,9 +80,19 @@ GOV.UK Notify
     {{ service.name }}
     </span>
     </td>
-    <td class="summary-item-field">
+    <td class="summary-item-field-first-wider">
     <span>
     {{ service.createdAt|datetimeformat }}
+    </span>
+    </td>
+    <td class="summary-item-field-first">
+    <span>
+    {{ service.active }}
+    </span>
+    </td>
+    <td class="summary-item-field-first">
+    <span>
+    {{ service.limit }}
     </span>
     </td>
     <td class="summary-item-field-with-action">
