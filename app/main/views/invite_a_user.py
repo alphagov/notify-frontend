@@ -12,7 +12,11 @@ from flask_login import login_required
 @login_required
 def render_invite_a_user(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    return render_template("invite_a_user.html", service=service['service'], form=InviteUserForm(), **get_template_data())
+    return render_template(
+        "invite_a_user.html",
+        service=service['service'],
+        form=InviteUserForm(),
+        **get_template_data())
 
 
 @main.route('/service/<int:service_id>/invite-a-user', methods=['POST'])
