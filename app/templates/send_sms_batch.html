@@ -33,6 +33,16 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+    {% if errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            The CSV has an issue
+        </h3>
+        {% for error in errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ error }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <form action="" method="post" id="bulk-sms" enctype="multipart/form-data">
         {{ form.hidden_tag() }}

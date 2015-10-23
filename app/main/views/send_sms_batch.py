@@ -24,7 +24,24 @@ def process_sms_bulk(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
     uploaded = request.files['sms-bulk-upload']
     if uploaded and allowed_file(uploaded.filename):
-        transform(StringIO(uploaded.stream.read().decode("UTF8")), 'sms')
+        filename = secure_filename(uploaded.filename)
+        data = transform(StringIO(uploaded.stream.read().decode("UTF8")), 'sms')
+        if 'errors' in data:
+            return render_template(
+                "send_sms_batch.html",
+                form=form,
+                errors=data['errors'],
+                service=service['service'],
+                **get_template_data()
+            ), 400
+        job = data_api_client.create_job(filename, service_id)
+        for notification in data['notifications']:
+            data_api_client.send_sms(
+                notification['to'],
+                notification['message'],
+                job["job"]["id"],
+                service['service']['token']['token']
+            )
         return redirect(url_for('.view_all_jobs', service_id=service_id))
     else:
         return render_template("send_sms_batch.html", form=form, service=service['service'], **get_template_data())
