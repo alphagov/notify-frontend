@@ -67,6 +67,16 @@ class DataAPIClient(BaseAPIClient):
                 }
             })
 
+    def create_job(self, job_name, service_id):
+        return self._post(
+            '/job',
+            data={
+                "job": {
+                    "name": job_name,
+                    "serviceId": service_id
+                }
+            })
+
     def get_jobs_by_service_id(self, service_id):
         return self._get("/service/{}/jobs".format(service_id))
 
@@ -76,12 +86,21 @@ class DataAPIClient(BaseAPIClient):
     def get_notification_by_id(self, notification_id):
         return self._get("/notification/{}".format(notification_id))
 
-    def send_sms(self, mobile_number, message, token):
+    def send_sms(self, mobile_number, message, job_id=None, token=None):
+
+        notification = {}
+        notification.update({
+            "to": mobile_number,
+            "message": message
+        })
+
+        if job_id:
+            notification.update({
+                "jobId": job_id
+            })
+
         return self._post(
             '/sms/notification',
             data={
-                "notification": {
-                    "to": mobile_number,
-                    "message": message,
-                }
+                "notification": notification
             }, token=token)

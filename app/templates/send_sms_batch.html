@@ -4,16 +4,56 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": url_for('main.view_dashboard'),
+        "label": "Dashboard"
+      },
+      {
+        "link": url_for('main.view_service', service_id=service.id),
+        "label": service.name
+      },
+    {
+        "label": 'Send SMS batch'
+      }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
+
 <div class="page-container">
     {%
     with
-    heading = "Send SMS in bulk"
+    heading = "Send SMS batch"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+    {% if errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            The CSV has an issue
+        </h3>
+        {% for error in errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ error }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-    <form action="/admin/send-sms-batch" method="post" class="dropzone" id="bulk-sms">
+    <form action="" method="post" id="bulk-sms" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+      {%
+        with
+        name = "sms-bulk-upload"
+        %}
+        {% include "toolkit/forms/upload.html" %}
+        <button class="button-save">Upload batch</button>
+
+{% endwith %}
     </form>
 
 </div>

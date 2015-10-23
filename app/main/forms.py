@@ -3,6 +3,10 @@ from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Email
 
 
+class BaseForm(Form):
+    pass
+
+
 class InviteUserForm(Form):
     email_address = StringField('Email address', validators=[
         DataRequired(message='Email cannot be empty'),
