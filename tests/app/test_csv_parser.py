@@ -45,7 +45,9 @@ def test_should_reject_csv_with_a_bad_message(notify_frontend, notify_config):
 
 
 def test_should_reject_csv_with_a_bad_message(notify_frontend, notify_config):
-    invalid_sms_incorrect_num_columns = StringIO(open('tests/csv_test_files/invalid_sms_incorrect_num_columns.csv').read())
+    invalid_sms_incorrect_num_columns = StringIO(
+        open('tests/csv_test_files/invalid_sms_incorrect_num_columns.csv').read()
+    )
 
     transformed = transform_sms(invalid_sms_incorrect_num_columns)
     assert len(transformed['errors']) == 1
