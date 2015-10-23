@@ -14,6 +14,9 @@ class Config(object):
     SECRET_KEY = os.getenv('NOTIFY_ADMIN_FRONTEND_COOKIE_SECRET')
     NOTIFY_DATA_API_URL = os.getenv('NOTIFY_API_URL', "http://localhost:6001")
     NOTIFY_DATA_API_AUTH_TOKEN = os.getenv('NOTIFY_API_TOKEN', "valid-token")
+    MAX_CONTENT_LENGTH = 1 * 1024 * 1024  # 1 MB max uploads
+    MAX_ROWS_IN_BULK_UPLOAD = 100
+    ALLOWED_EXTENSIONS = set(['csv'])
 
     STATIC_URL_PATH = '/admin/static'
     ASSET_PATH = STATIC_URL_PATH + '/'

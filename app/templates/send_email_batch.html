@@ -4,16 +4,46 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+
+{% block breadcrumb %}
+  {%
+    with items = [
+      {
+        "link": url_for('main.view_dashboard'),
+        "label": "Dashboard"
+      },
+      {
+        "link": url_for('main.view_service', service_id=service.id),
+        "label": service.name
+      },
+    {
+        "label": 'Send email batch'
+      }
+    ]
+  %}
+    {% include "toolkit/breadcrumb.html" %}
+  {% endwith %}
+{% endblock %}
+
 <div class="page-container">
     {%
     with
-    heading = "Send email in bulk"
+    heading = "Send email batch"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
 
-    <form action="/admin/send-sms-batch" method="post" class="dropzone" id="bulk-sms">
+    <form action="" method="post" id="bulk-sms" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+      {%
+        with
+        name = "email-bulk-upload"
+        %}
+        {% include "toolkit/forms/upload.html" %}
+        <button class="button-save">Upload batch</button>
+
+{% endwith %}
     </form>
 
 </div>
