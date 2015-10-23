@@ -8,5 +8,4 @@ def get_template_data(**kwargs):
 
 
 def allowed_file(filename):
-    print(current_app.config['ALLOWED_EXTENSIONS'])
     return '.' in filename and filename.rsplit('.', 1)[1] in current_app.config['ALLOWED_EXTENSIONS']
