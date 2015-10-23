@@ -13,30 +13,34 @@ GOV.UK Notify
     {% endwith %}
 
 
-    <form autocomplete="off" action="" method="post">
+     <form autocomplete="off" action="" method="post">
         <div class="grid-row">
             <div class="column-two-thirds">
-                <div class="question" id="emailcode">
-                    <label for="emailcode">
-                      <span class="question-heading">
-                        Email code received
-                      </span>
-                    </label>
-                    <input type="text" name="emailcode" id="input-emailcode" class="text-box" value=""/>
+                {{ form.hidden_tag() }}
+
+                 {% if form.sms_code.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.sms_code.label(class="question-heading") }}
+                        {% if form.sms_code.errors %}
+                        <p class="validation-message" id="error-sms-code-textbox">
+                            {% for error in form.sms_code.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.sms_code(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.sms_code.errors %}
                 </div>
-                <div class="question" id="smscode">
-                    <label for="smscode">
-                      <span class="question-heading">
-                        SMS code received
-                      </span>
-                    </label>
-                    <input type="text" name="smscode" id="input-smscode" class="text-box" value=""/>
-                </div>
+                {% endif %}
+
+
 
                 <button class="button-save">Submit</button>
             </div>
         </div>
     </form>
+
 
 </div>
 {% endblock %}

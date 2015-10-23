@@ -5,6 +5,7 @@ GOV.UK Notify
 
 {% block content %}
 
+
 <div class="page-container">
 
 
@@ -35,37 +36,7 @@ GOV.UK Notify
             <div class="column-two-thirds">
                 {{ form.hidden_tag() }}
 
-                {% if form.name.errors %}
-                <div class="validation-wrapper">
-                    {% endif %}
-                    <div class="question">
-                        {{ form.name.label(class="question-heading") }}
-                        {% if form.name.errors %}
-                        <p class="validation-message" id="error-name-textbox">
-                            {% for error in form.name.errors %}{{ error }}{% endfor %}
-                        </p>
-                        {% endif %}
-                        {{ form.name(class="text-box", autocomplete="off") }}
-                    </div>
-                    {% if form.name.errors %}
-                </div>
-                {% endif %}
 
-                 {% if form.mobile_number.errors %}
-                <div class="validation-wrapper">
-                    {% endif %}
-                    <div class="question">
-                        {{ form.mobile_number.label(class="question-heading") }}
-                        {% if form.mobile_number.errors %}
-                        <p class="validation-message" id="error-mobile-number-textbox">
-                            {% for error in form.mobile_number.errors %}{{ error }}{% endfor %}
-                        </p>
-                        {% endif %}
-                        {{ form.mobile_number(class="text-box", autocomplete="off") }}
-                    </div>
-                    {% if form.mobile_number.errors %}
-                </div>
-                {% endif %}
 
                  {% if form.email_address.errors %}
                 <div class="validation-wrapper">
@@ -82,6 +53,23 @@ GOV.UK Notify
                     {% if form.email_address.errors %}
                 </div>
                 {% endif %}
+
+                  {% if form.mobile_number.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.mobile_number.label(class="question-heading") }}
+                        {% if form.mobile_number.errors %}
+                        <p class="validation-message" id="error-mobile-number-textbox">
+                            {% for error in form.mobile_number.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.mobile_number(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.mobile_number.errors %}
+                </div>
+                {% endif %}
+
 
                 {% if form.password.errors %}
                 <div class="validation-wrapper">

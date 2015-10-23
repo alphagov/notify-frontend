@@ -23,7 +23,6 @@ def process_login():
             user = User.from_json(user_json)
             login_user(user)
             session['organisation_name'] = "GDS Notify"
-            session['organisation_id'] = user.organisation_id
             if next_url and next_url.startswith('/admin'):
                 return redirect(next_url)
 
