@@ -1,10 +1,37 @@
-from flask import render_template, redirect
+from flask import render_template, redirect, session, url_for
 from .. import main
 from . import get_template_data
-from flask_login import login_required, current_user
+from app.main.forms import ThreeFAForm
+from app import data_api_client
+from app.encryption import checkpw
+from app.user import User
+from flask_login import login_user
 
 
 @main.route('/3fa', methods=['GET'])
-@login_required
 def view_3fa():
-    return render_template("3fa.html", **get_template_data())
+    return render_template("3fa.html", form=ThreeFAForm(), **get_template_data())
+
+
+@main.route('/3fa', methods=['POST'])
+def submit_3fa():
+    form = ThreeFAForm()
+    if form.validate_on_submit():
+        original_code = session['code']
+        if checkpw(form.sms_code.data, original_code):
+            # data_api_client.activate_user(session['user_id'])
+            user = User.from_json(
+                data_api_client.get_user_by_id(session['user_id'])
+            )
+            login_user(user)
+            return redirect(url_for('.view_dashboard'))
+        else:
+            return render_template(
+                'login.html',
+                **get_template_data(form=form)
+            ), 403
+    else:
+        return render_template(
+            '3fa.html',
+            **get_template_data(form=form)
+        ), 400

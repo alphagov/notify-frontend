@@ -8,6 +8,17 @@ class DataAPIClient(BaseAPIClient):
         self.base_url = app.config['NOTIFY_DATA_API_URL']
         self.auth_token = app.config['NOTIFY_DATA_API_AUTH_TOKEN']
 
+    def register(self, email_address, password, mobile_number):
+        return self._post(
+            '/users',
+            data={
+                "user": {
+                    "emailAddress": email_address,
+                    "password": password,
+                    "mobileNumber": mobile_number
+                }
+            })
+
     def get_organisation(self, organisation_id):
         try:
             return self._get("/organisation/{}".format(organisation_id))
@@ -50,19 +61,21 @@ class DataAPIClient(BaseAPIClient):
                 raise
         return None
 
+    def activate_user(self, user_id):
+        return self._post('/user/{}/activate'.format(user_id))
+
     def get_service_by_user_id_and_service_id(self, user_id, service_id):
         return self._get("/user/{}/service/{}".format(user_id, service_id))
 
     def get_services_by_user_id(self, user_id):
         return self._get("/user/{}/services".format(user_id))
 
-    def create_service(self, service_name, organisation_id, user_id):
+    def create_service(self, service_name, user_id):
         return self._post(
             '/service',
             data={
                 "service": {
                     "name": service_name,
-                    "organisationId": organisation_id,
                     "userId": user_id
                 }
             })

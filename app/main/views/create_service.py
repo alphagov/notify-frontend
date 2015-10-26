@@ -22,7 +22,6 @@ def create_service():
         try:
             data_api_client.create_service(
                 form.service_name.data,
-                int(session['organisation_id']),
                 int(session['user_id']))
         except APIError as ex:
             print(ex.message)

@@ -14,6 +14,12 @@ class InviteUserForm(Form):
     ])
 
 
+class ThreeFAForm(Form):
+    sms_code = StringField('SMS Code', validators=[
+        DataRequired(message='Email cannot be empty'),
+    ])
+
+
 class LoginForm(Form):
     email_address = StringField('Email address', validators=[
         DataRequired(message='Email cannot be empty'),
@@ -25,9 +31,6 @@ class LoginForm(Form):
 
 
 class RegistrationForm(Form):
-    name = StringField('Name', validators=[
-        DataRequired(message='Email cannot be empty')
-    ])
     email_address = StringField('Email address', validators=[
         DataRequired(message='Email cannot be empty'),
         Email(message='Please enter a valid email address')
