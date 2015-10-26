@@ -20,7 +20,10 @@ def process_sms(service_id):
     if form.validate_on_submit():
         service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
         try:
-            data_api_client.send_sms(form.mobile_number.data, form.message.data, token=service['service']['token']['token'])
+            data_api_client.send_sms(
+                form.mobile_number.data,
+                form.message.data,
+                token=service['service']['token']['token'])
             flash("SMS sent to {}".format(form.mobile_number.data), "success")
             return redirect(url_for('.view_all_jobs', service_id=service_id))
         except APIError as ex:
