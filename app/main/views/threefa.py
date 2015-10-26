@@ -19,11 +19,6 @@ def submit_3fa():
     if form.validate_on_submit():
         original_code = session['code']
         if checkpw(form.sms_code.data, original_code):
-            # data_api_client.activate_user(session['user_id'])
-            user = User.from_json(
-                data_api_client.get_user_by_id(session['user_id'])
-            )
-            login_user(user)
             return redirect(url_for('.view_dashboard'))
         else:
             return render_template(
