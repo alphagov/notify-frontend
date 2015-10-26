@@ -19,7 +19,7 @@ def process_registration():
         user = data_api_client.register(form.email_address.data, form.password.data, form.mobile_number.data)
         code = ''.join(["%s" % randint(0, 9) for num in range(0, 5)])
         session['code'] = hashpw(code)
-        session['user_id'] = user['user']['id']
+        session['user_id'] = user['users']['id']
         data_api_client.send_sms(form.mobile_number.data, code)
         return redirect(url_for('.view_3fa'))
     else:
