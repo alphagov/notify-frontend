@@ -50,6 +50,12 @@ GOV.UK Notify
 
           <th scope="col" class="summary-item-field-heading">
 
+              Restricted
+
+          </th>
+
+          <th scope="col" class="summary-item-field-heading">
+
               Daily limit
 
           </th>
@@ -75,6 +81,11 @@ GOV.UK Notify
     <td class="summary-item-field-first">
     <span>
     {{ service.active }}
+    </span>
+    </td>
+        <td class="summary-item-field-first">
+    <span>
+    {{ service.restricted }}
     </span>
     </td>
     <td class="summary-item-field-first">

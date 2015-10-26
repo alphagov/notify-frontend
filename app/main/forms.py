@@ -1,6 +1,6 @@
 from flask_wtf import Form
 from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, Length
 
 
 class BaseForm(Form):
@@ -54,5 +54,6 @@ class SmsForm(Form):
 
 class ServiceForm(Form):
     service_name = StringField('Service name', validators=[
-        DataRequired(message='Service name is required')
+        DataRequired(message='Service name is required'),
+        Length(min=5, max=160, message="Service name must be between 5 and 160 characters")
     ])
