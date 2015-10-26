@@ -9,6 +9,7 @@ def user():
             "createdAt": "2015-10-15T08:12:02.693378Z",
             "emailAddress": "test@example.com",
             "failedLoginCount": 0,
+            "active": True,
             "id": 1,
             "locked": False,
             "organisationId": 1,

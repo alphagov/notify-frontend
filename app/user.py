@@ -1,15 +1,16 @@
 class User():
-    def __init__(self, user_id, email_address, role, locked):
+    def __init__(self, user_id, email_address, role, locked, active):
         self.id = user_id
         self.email_address = email_address
         self.role = role
         self.locked = locked
+        self.active = active
 
     def is_authenticated(self):
         return True
 
     def is_active(self):
-        return True
+        return self.active
 
     def is_locked(self):
         return self.locked
@@ -30,7 +31,8 @@ class User():
             user_id=user["id"],
             email_address=user['emailAddress'],
             locked=user['locked'],
-            role=user['role']
+            role=user['role'],
+            active=user['active']
         )
 
     @staticmethod
