@@ -30,6 +30,15 @@ GOV.UK Notify
             {% endif %}
     </div>
     {% endif %}
+    {% if category == 'success' %}
+    <div class="banner-success-without-action">
+            {% if message == 'logged_out' %}
+            <p class="banner-message">
+                You are now logged out
+            </p>
+            {% endif %}
+    </div>
+    {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}

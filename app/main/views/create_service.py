@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, session
+from flask import render_template, redirect, url_for, session, flash
 from .. import main
 from . import get_template_data
 from flask_login import login_required, current_user
@@ -22,9 +22,11 @@ def create_service():
         try:
             data_api_client.create_service(
                 form.service_name.data,
-                int(session['user_id']))
+                int(session['user_id'])
+            )
         except APIError as ex:
             print(ex.message)
+        flash('service_created', 'success')
         return redirect(url_for('.view_dashboard'))
     else:
         return render_template("create_service.html", form=form, **get_template_data())
