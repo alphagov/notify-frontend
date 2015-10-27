@@ -34,10 +34,10 @@ def activate_service(service_id):
     try:
         data_api_client.activate_service(service_id)
         flash("Service activated", "success")
-        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
+        return redirect(url_for('.view_service', service_id=service_id))
     except APIError as ex:
         flash(ex.message, "error")
-        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
+        return redirect(url_for('.view_service', service_id=service_id))
 
 
 @main.route('/service/<int:service_id>/deactivate', methods=['POST'])
@@ -46,7 +46,7 @@ def deactivate_service(service_id):
     try:
         data_api_client.deactivate_service(service_id)
         flash("Service deactivated", "success")
-        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
+        return redirect(url_for('.view_service', service_id=service_id))
     except APIError as ex:
         flash(ex.message, "error")
-        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
+        return redirect(url_for('.view_service', service_id=service_id))
