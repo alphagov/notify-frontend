@@ -27,6 +27,42 @@ GOV.UK Notify
 {% endblock %}
 
 <div class="page-container">
+
+    {% if form.errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            There was a problem with your answer to the following questions
+        </h3>
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ form[field_name].label }}</a>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="banner-destructive-without-action">
+            <p class="banner-message">
+                {{ message }}
+            </p>
+    </div>
+    {% endif %}
+    {% if category == 'success' %}
+    <div class="banner-success-without-action">
+            <p class="banner-message">
+                {{ message }}
+            </p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
     {%
     with
     heading = "Users"
@@ -98,14 +134,18 @@ GOV.UK Notify
     </td>
     <td class="summary-item-field-with-action">
     <span>
-    {% if current_user.email_address != user.emailAddress %}
-    {%
-    with
-        type = "destructive",
-        label = "Remove this user"
-        %}
-    {% include "toolkit/button.html" %}
-    {% endwith %}
+        {% if current_user.email_address != user.emailAddress %}
+        <form action="{{ url_for('.remove_user_from_service', service_id=service.id) }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" name="email_address" value="{{ user.emailAddress }}"/>
+            {%
+                with
+                type = "destructive",
+                label = "Remove user from service"
+            %}
+            {% include "toolkit/button.html" %}
+            {% endwith %}
+        </form>
         {% endif %}
     </span>
     </td>
@@ -115,10 +155,33 @@ GOV.UK Notify
 
     </tbody>
   </table>
- <header class="page-heading-smaller">
-        <p class="context">
-            <a href="{{ url_for('main.render_invite_a_user', service_id=service.id)}}">Invite a user</a>
-        </p>
-    </header>
+
+
+    <form autocomplete="off" action="{{ url_for('.add_user_to_service', service_id=service.id) }}" method="post">
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                {{ form.hidden_tag() }}
+
+                {% if form.email_address.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.email_address.label(class="question-heading") }}
+                        {% if form.email_address.errors %}
+                        <p class="validation-message" id="error-email-address-textbox">
+                            {% for error in form.email_address.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.email_address(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.email_address.errors %}
+                </div>
+                {% endif %}
+
+
+                <button class="button-save">Add user to service</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}
