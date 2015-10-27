@@ -27,8 +27,12 @@ def process_sms(service_id):
             flash("SMS sent to {}".format(form.mobile_number.data), "success")
             return redirect(url_for('.view_all_jobs', service_id=service_id))
         except APIError as ex:
-            print(ex.response.json())
-            abort(500, "API error")
+            flash(ex.response.json()['error'], "error")
+            return render_template(
+                "send_sms.html",
+                service=service['service'],
+                form=form,
+                **get_template_data()), 500
     else:
         return render_template(
             "send_sms.html",

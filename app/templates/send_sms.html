@@ -38,6 +38,13 @@ GOV.UK Notify
             </p>
     </div>
     {% endif %}
+     {% if category == 'error' %}
+    <div class="banner-destructive-without-action">
+            <p class="banner-message">
+                {{ message }}
+            </p>
+    </div>
+    {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}
