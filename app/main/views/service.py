@@ -6,13 +6,26 @@ from flask_login import login_required, current_user
 from app.main.auth import role_required
 from app.api_client.errors import APIError
 from app.main.forms import BaseForm
+from datetime import datetime
 
 
 @main.route('/service/<int:service_id>', methods=['GET'])
 @login_required
 def view_service(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    return render_template("service.html", form=BaseForm(), service=service['service'], **get_template_data())
+    usage = data_api_client.get_services_usage(service_id)['usage']
+    today = datetime.utcnow().date()
+    used_today = 0
+    for use in usage:
+        if use['day'] == str(today):
+            used_today = use['count']
+
+    return render_template(
+        "service.html",
+        form=BaseForm(),
+        used_today=used_today,
+        service=service['service'],
+        **get_template_data())
 
 
 @main.route('/service/<int:service_id>/activate', methods=['POST'])
@@ -23,14 +36,8 @@ def activate_service(service_id):
         flash("Service activated", "success")
         return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
     except APIError as ex:
-        service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
         flash(ex.message, "error")
-        return render_template(
-            'service.html',
-            service=service['service'],
-            form=BaseForm(),
-            **get_template_data()
-        ), 400
+        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
 
 
 @main.route('/service/<int:service_id>/deactivate', methods=['POST'])
@@ -41,11 +48,5 @@ def deactivate_service(service_id):
         flash("Service deactivated", "success")
         return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
     except APIError as ex:
-        service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
         flash(ex.message, "error")
-        return render_template(
-            'service.html',
-            service=service['service'],
-            form=BaseForm(),
-            **get_template_data()
-        ), 400
+        return redirect(url_for('.view_service', form=BaseForm(), service_id=service_id))
