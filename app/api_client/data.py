@@ -61,6 +61,24 @@ class DataAPIClient(BaseAPIClient):
                 raise
         return None
 
+    def add_user_to_service(self, email_address, service_id):
+        return self._post(
+            '/service/{}/add-user'.format(service_id),
+            data={
+                "user": {
+                    "emailAddress": email_address
+                }
+            })
+
+    def remove_user_from_service(self, email_address, service_id):
+        return self._post(
+            '/service/{}/remove-user'.format(service_id),
+            data={
+                "user": {
+                    "emailAddress": email_address
+                }
+            })
+
     def activate_user(self, user_id):
         return self._post('/user/{}/activate'.format(user_id))
 
