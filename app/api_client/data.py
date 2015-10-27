@@ -88,6 +88,9 @@ class DataAPIClient(BaseAPIClient):
     def get_services_by_user_id(self, user_id):
         return self._get("/user/{}/services".format(user_id))
 
+    def get_services_usage(self, service_id):
+        return self._get("/service/{}/usage".format(service_id))
+
     def create_service(self, service_name, user_id):
         return self._post(
             '/service',
