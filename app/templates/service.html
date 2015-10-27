@@ -23,12 +23,37 @@ GOV.UK Notify
 {% endblock %}
 
 <div class="page-container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="banner-destructive-without-action">
+            <p class="banner-message">
+                {{ message }}
+            </p>
+    </div>
+    {% endif %}
+    {% if category == 'success' %}
+    <div class="banner-success-without-action">
+            <p class="banner-message">
+                {{ message }}
+            </p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
     {%
     with
     heading = service.name
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
+
+
 
 
 
@@ -104,6 +129,26 @@ GOV.UK Notify
 
     </tbody>
   </table>
+
+    {% if not service.active %}
+     <form autocomplete="off" action="{{ url_for('.activate_service', service_id=service.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <button class="button-save">Activate service</button>
+            </div>
+        </div>
+    </form>
+    {% else %}
+    <form autocomplete="off" action="{{ url_for('.deactivate_service', service_id=service.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <button class="button-destructive">Deactivate service</button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
 
 </div>
 {% endblock %}

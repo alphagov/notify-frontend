@@ -98,6 +98,12 @@ class DataAPIClient(BaseAPIClient):
                 }
             })
 
+    def activate_service(self, service_id):
+        return self._post('/service/{}/activate'.format(service_id), data={})
+
+    def deactivate_service(self, service_id):
+        return self._post('/service/{}/deactivate'.format(service_id), data={})
+
     def create_job(self, job_name, service_id):
         return self._post(
             '/job',

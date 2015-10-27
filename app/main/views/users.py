@@ -54,7 +54,6 @@ def remove_user_from_service(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
     users = data_api_client.get_users_by_service_id(service_id)
     try:
-        print(request.form)
         data_api_client.remove_user_from_service(request.form['email_address'], service_id)
         return redirect(url_for('.view_service_users', form=InviteUserForm(), service_id=service_id))
     except APIError as ex:
