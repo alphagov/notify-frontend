@@ -4,7 +4,7 @@ from . import get_template_data
 from flask_login import login_required, current_user
 from app.main.forms import SmsForm
 from app import data_api_client
-from app.api_client.errors import APIError
+from notify_client.errors import APIError
 
 
 @main.route('/service/<int:service_id>/send-sms', methods=['GET'])

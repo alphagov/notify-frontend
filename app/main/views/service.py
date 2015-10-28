@@ -4,7 +4,7 @@ from . import get_template_data
 from app import data_api_client
 from flask_login import login_required, current_user
 from app.main.auth import role_required
-from app.api_client.errors import APIError
+from notify_client.errors import APIError
 from app.main.forms import BaseForm
 from datetime import datetime
 
