@@ -2,7 +2,7 @@ from flask import render_template, session, redirect, url_for, request, flash
 from .. import main
 from . import get_template_data
 from app import data_api_client
-from app.api_client.errors import APIError
+from notify_client.errors import APIError
 from flask_login import login_required, current_user
 from app.main.forms import InviteUserForm
 

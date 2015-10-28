@@ -9,7 +9,7 @@ from flask._compat import string_types
 
 from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
-from app.api_client import DataAPIClient
+from notify_client import DataAPIClient
 from app.user import User
 from config import configs
 from . import proxy_fix

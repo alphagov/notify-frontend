@@ -14,3 +14,5 @@ markdown==2.6.2
 # Required for SNI to work in requests
 pyOpenSSL==0.14
 pytz==2015.4
+
+git+https://github.com/alphagov/notify-api-client.git@0.0.4#egg=notify-api-client==0.0.4
