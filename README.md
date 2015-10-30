@@ -108,3 +108,18 @@ To use feature flags, check out the documentation in (the README of)
 - `npm run frontend-install` (install all non-NPM dependancies)
 
 Note: `npm run frontend-install` is run as a post-install task after you run `npm install`.
+
+## Cheatsheet
+
+```
+source ./venv/bin/activate
+export DM_DATA_API_URL=http://localhost:5000
+```
+or
+```
+export NOTIFY_API_URL=https://test-notify-api.herokuapp.com/`
+export DM_DATA_API_AUTH_TOKEN=<bearer_token>`
+pip install -r requirements_for_test.txt`
+npm run frontend-build:development
+./scripts/run_app.sh
+```
