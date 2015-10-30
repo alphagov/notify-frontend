@@ -61,6 +61,26 @@ GOV.UK Notify
         {{ form.hidden_tag() }}
         <div class="grid-row">
             <div class="column-two-thirds">
+
+                {% if form.description.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.description.label(class="question-heading-with-hint") }}
+                        <p class="hint">
+                            Enter the description of the notification
+                        </p>
+                        {% if form.description.errors %}
+                        <p class="validation-message" id="error-description-textbox">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.description(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.description.errors %}
+                </div>
+                {% endif %}
+
                 {% if form.mobile_number.errors %}
                 <div class="validation-wrapper">
                     {% endif %}
