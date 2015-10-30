@@ -4,6 +4,25 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+{% block breadcrumb %}
+{%
+with items = [
+{
+"link": url_for('main.view_dashboard'),
+"label": "Dashboard"
+},
+{
+"link": url_for('main.view_service', service_id=service.id),
+"label": service.name
+},
+{
+"label": 'API'
+}
+]
+%}
+{% include "toolkit/breadcrumb.html" %}
+{% endwith %}
+{% endblock %}
 <div class="page-container">
     {%
     with
@@ -12,22 +31,132 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
-    <p>API key (test): 4fac39374cabffd300283749405</p>
 
-    <p>API endpoint: https://notify-admin.herokuapp.com/api/</p>
+    <nav role="navigation">
+        <ul class="browse-list">
 
-    <p><a href="">API documentation</a>
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="#"><span>API status</span></a>
+
+                <p class="browse-list-item-body">
+                    {% if service.restricted %}
+                    Restricted
+                    {% else %}
+                    Unrestricted
+                    {% endif %}
+                </p>
+
+                <p class="browse-list-item-subtext">
+                    Restricted services can only send notifications to service <a
+                        href="{{ url_for('.view_service_users', service_id=service.id)}}">users</a>
+                </p>
+
+            </li>
+
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="https://test-notify-api.herokuapp.com/"><span>API Url</span></a>
+
+                <p class="browse-list-item-body">
+                    https://test-notify-api.herokuapp.com/
+                </p>
+
+            </li>
+
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="https://github.com/alphagov/notify-api-client"><span>API Client documentation</span></a>
+
+                <p class="browse-list-item-body">
+                    https://github.com/alphagov/notify-api-client
+                </p>
+
+            </li>
+
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="https://github.com/alphagov/notify-api"><span>API documentation</span></a>
+
+                <p class="browse-list-item-body">
+                    https://github.com/alphagov/notify-api
+                </p>
+
+            </li>
+        </ul>
+    </nav>
 
 
-    <form autocomplete="off" action="" method="post">
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <p>If you regenerate your key, your application will need to be updated before you can send any more notifications.
+    {%
+    with
+    heading = "API usage"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
 
-                <button class="button-save">Regenerate key</button>
-            </div>
-        </div>
-    </form>
+    <table class="summary-item-body">
+        <caption class="visuallyhidden">
+            Usage
+        </caption>
+        <thead class="summary-item-field-headings-visible">
+        <tr>
+
+            <th scope="col" class="summary-item-field-heading">
+
+                date
+
+            </th>
+
+            <th scope="col" class="summary-item-field-heading">
+
+                count
+
+            </th>
+        </tr>
+        </thead>
+        {% for use in usage %}
+        <tr class="summary-item-row">
+
+            <td class="summary-item-field-first-wider">
+                <span>
+                {{ use.day }}
+                </span>
+            </td>
+            <td class="summary-item-field">
+                <span>
+                {{ use.count }}
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {%
+    with
+    heading = "Key management"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+
+    <nav role="navigation">
+        <ul class="browse-list">
+
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="#"><span>API key</span></a>
+
+                <p class="browse-list-item-body">
+                    {{ service.token.token }}
+                </p>
+
+                <p class="browse-list-item-subtext">
+                    This must be kept secret
+                </p>
+
+            </li>
+        </ul>
+    </nav>
 
 </div>
 {% endblock %}
