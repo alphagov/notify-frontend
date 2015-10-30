@@ -51,19 +51,19 @@ with items = [
             <a class="browse-list-item-link" href="{{ url_for('.view_service', service_id=service.id)}}"><span> {{ service.name }}</span></a>
 
             <p class="browse-list-item-subtext">
-                Send an <a href="{{ url_for('.send_sms', service_id=service.id)}}">SMS</a>
+                <a href="{{ url_for('.send_sms', service_id=service.id)}}">Send an SMS</a>
             </p>
 
             <p class="browse-list-item-subtext">
-                Send an <a href="{{ url_for('.render_send_sms_batch', service_id=service.id)}}">SMS Batch</a>
+                <a href="{{ url_for('.render_send_sms_batch', service_id=service.id)}}">Send an SMS Batch</a>
             </p>
 
             <p class="browse-list-item-subtext">
-                Send an <a href="{{ url_for('.render_send_email_batch', service_id=service.id)}}">email batch</a>
+                <a href="{{ url_for('.render_send_email_batch', service_id=service.id)}}">Send an email batch</a>
             </p>
 
             <p class="browse-list-item-subtext">
-                View notification <a href="{{ url_for('.view_all_jobs', service_id=service.id)}}">history</a>
+                <a href="{{ url_for('.view_all_jobs', service_id=service.id)}}">View notification history</a>
             </p>
 
              <p class="browse-list-item-subtext">
@@ -71,7 +71,7 @@ with items = [
             </p>
 
              <p class="browse-list-item-subtext">
-                Manage <a href="{{ url_for('.view_api', service_id=service.id)}}">API keys</a>
+                <a href="{{ url_for('.view_api', service_id=service.id)}}">Manage API keys</a>
             </p>
 
         </li>
@@ -79,7 +79,7 @@ with items = [
     </ul>
     <header class="page-heading-smaller">
         <p class="context">
-            <a href="{{ url_for('.view_create_service') }}">Create new service</a>
+            <a href="{{ url_for('.view_create_service') }}">Set up a new service</a>
         </p>
     </header>
 </div>
