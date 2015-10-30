@@ -67,7 +67,7 @@ GOV.UK Notify
                     <div class="question">
                         {{ form.mobile_number.label(class="question-heading-with-hint") }}
                         <p class="hint">
-                            Enter the mobile number you want to message
+                            UK mobile numbers only
                         </p>
                         {% if form.message.errors %}
                         <p class="validation-message" id="error-email-address-textbox">
@@ -84,10 +84,7 @@ GOV.UK Notify
                 <div class="validation-wrapper">
                     {% endif %}
                     <div class="question">
-                        {{ form.message.label(class="question-heading-with-hint") }}
-                        <p class="hint">
-                            Enter the message you want to send
-                        </p>
+                        {{ form.message.label(class="question-heading") }}
                         {% if form.message.errors %}
                         <p class="validation-message" id="error-message-textbox">
                             {% for error in form.message.errors %}{{ error }}{% endfor %}
