@@ -23,6 +23,7 @@ def process_sms(service_id):
             data_api_client.send_sms(
                 form.mobile_number.data,
                 form.message.data,
+                description=form.description.data,
                 token=service['service']['token']['token'])
             flash("SMS sent to {}".format(form.mobile_number.data), "success")
             return redirect(url_for('.view_all_jobs', service_id=service_id))

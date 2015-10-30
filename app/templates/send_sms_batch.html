@@ -6,23 +6,23 @@ GOV.UK Notify
 {% block content %}
 
 {% block breadcrumb %}
-  {%
-    with items = [
-      {
-        "link": url_for('main.view_dashboard'),
-        "label": "Dashboard"
-      },
-      {
-        "link": url_for('main.view_service', service_id=service.id),
-        "label": service.name
-      },
-    {
-        "label": 'Send SMS batch'
-      }
-    ]
-  %}
-    {% include "toolkit/breadcrumb.html" %}
-  {% endwith %}
+{%
+with items = [
+{
+"link": url_for('main.view_dashboard'),
+"label": "Dashboard"
+},
+{
+"link": url_for('main.view_service', service_id=service.id),
+"label": service.name
+},
+{
+"label": 'Send SMS batch'
+}
+]
+%}
+{% include "toolkit/breadcrumb.html" %}
+{% endwith %}
 {% endblock %}
 
 <div class="page-container">
@@ -46,14 +46,34 @@ GOV.UK Notify
 
     <form action="" method="post" id="bulk-sms" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-      {%
+
+        {% if form.description.errors %}
+        <div class="validation-wrapper">
+            {% endif %}
+            <div class="question">
+                {{ form.description.label(class="question-heading-with-hint") }}
+                <p class="hint">
+                    Enter the description of the notification
+                </p>
+                {% if form.description.errors %}
+                <p class="validation-message" id="error-description-textbox">
+                    {% for error in form.description.errors %}{{ error }}{% endfor %}
+                </p>
+                {% endif %}
+                {{ form.description(class="text-box", autocomplete="off") }}
+            </div>
+            {% if form.description.errors %}
+        </div>
+        {% endif %}
+
+        {%
         with
         name = "sms-bulk-upload"
         %}
         {% include "toolkit/forms/upload.html" %}
         <button class="button-save">Upload batch</button>
 
-{% endwith %}
+        {% endwith %}
     </form>
 
 </div>

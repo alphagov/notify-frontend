@@ -7,6 +7,12 @@ class BaseForm(Form):
     pass
 
 
+class CreateSMSBatchForm(Form):
+    description = StringField('Description', validators=[
+        DataRequired(message='Description cannot be empty')
+    ])
+
+
 class InviteUserForm(Form):
     email_address = StringField('Email address', validators=[
         DataRequired(message='Email cannot be empty'),
@@ -15,7 +21,7 @@ class InviteUserForm(Form):
 
 
 class ThreeFAForm(Form):
-    sms_code = StringField('SMS code', validators=[
+    sms_code = StringField('SMS Code', validators=[
         DataRequired(message='Email cannot be empty'),
     ])
 
@@ -50,6 +56,7 @@ class SmsForm(Form):
     message = StringField('Message', validators=[
         DataRequired(message='Message cannot be empty')
     ])
+    description = StringField('Description')
 
 
 class ServiceForm(Form):

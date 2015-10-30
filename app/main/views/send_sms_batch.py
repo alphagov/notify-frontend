@@ -6,7 +6,7 @@ from app.csv_parser import transform
 from notify_client.errors import APIError
 from flask_login import login_required, current_user
 from werkzeug import secure_filename
-from app.main.forms import BaseForm
+from app.main.forms import CreateSMSBatchForm
 from app.main.views import allowed_file
 from io import StringIO
 
@@ -15,43 +15,56 @@ from io import StringIO
 @login_required
 def render_send_sms_batch(service_id):
     service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    return render_template("send_sms_batch.html", form=BaseForm(), service=service['service'], **get_template_data())
+    return render_template(
+        "send_sms_batch.html",
+        form=CreateSMSBatchForm(),
+        service=service['service'],
+        **get_template_data()
+    )
 
 
 @main.route('/service/<int:service_id>/send-sms-batch', methods=['POST'])
 @login_required
 def process_sms_bulk(service_id):
-    form = BaseForm()
-    service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
-    uploaded = request.files['sms-bulk-upload']
-    if uploaded and allowed_file(uploaded.filename):
-        filename = secure_filename(uploaded.filename)
-        data = transform(StringIO(uploaded.stream.read().decode("UTF8")), 'sms')
-        if 'errors' in data:
-            return render_template(
-                "send_sms_batch.html",
-                form=form,
-                errors=data['errors'],
-                service=service['service'],
-                **get_template_data()
-            ), 400
-        job = data_api_client.create_job(filename, service_id)
-        for notification in data['notifications']:
-            try:
-                data_api_client.send_sms(
-                    notification['to'],
-                    notification['message'],
-                    job["job"]["id"],
-                    service['service']['token']['token']
-                )
-            except APIError as ex:
-                message = "Uploaded with errors"
-                print(ex.response.json())
-                flash(message, 'error')
-                return redirect(url_for('.view_all_jobs', service_id=service_id))
+    form = CreateSMSBatchForm()
 
-        message = "Uploaded batch of {} notifications".format(len(data['notifications']))
-        flash(message, 'success')
-        return redirect(url_for('.view_all_jobs', service_id=service_id))
+    service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
+    if form.validate_on_submit():
+        uploaded = request.files['sms-bulk-upload']
+        if uploaded and allowed_file(uploaded.filename):
+            filename = secure_filename(uploaded.filename)
+            data = transform(StringIO(uploaded.stream.read().decode("UTF8")), 'sms')
+            if 'errors' in data:
+                return render_template(
+                    "send_sms_batch.html",
+                    form=form,
+                    errors=data['errors'],
+                    service=service['service'],
+                    **get_template_data()
+                ), 400
+            job = data_api_client.create_job(form.description.data, filename, service_id)
+            for notification in data['notifications']:
+                try:
+                    data_api_client.send_sms(
+                        notification['to'],
+                        notification['message'],
+                        job_id=job["job"]["id"],
+                        token=service['service']['token']['token']
+                    )
+                except APIError as ex:
+                    message = "Uploaded with errors"
+                    print(ex.response.json())
+                    flash(message, 'error')
+                    return redirect(url_for('.view_all_jobs', service_id=service_id))
+
+            message = "Uploaded batch of {} notifications".format(len(data['notifications']))
+            flash(message, 'success')
+            return redirect(url_for('.view_all_jobs', service_id=service_id))
+        else:
+            return render_template("send_sms_batch.html", form=form, service=service['service'], **get_template_data())
     else:
-        return render_template("send_sms_batch.html", form=form, service=service['service'], **get_template_data())
+        return render_template(
+            "send_sms_batch.html",
+            form=form,
+            service=service['service'],
+            **get_template_data()), 400
