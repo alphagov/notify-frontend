@@ -130,4 +130,6 @@ pip install -r requirements_for_test.txt
 npm install
 npm run frontend-build:development
 ./scripts/run_app.sh
-```
+
+
+See API and API Client repos for more information```
