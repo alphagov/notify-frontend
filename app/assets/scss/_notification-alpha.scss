@@ -15,6 +15,11 @@ label.question-heading,label.question-heading-with-hint {
     padding: 10px 0 10px 0px;
 }
 
+.summary-item-field-first, .summary-item-field-first-wider, .summary-item-field-with-action, .summary-item-field {
+
+    padding-left: 0px;
+}
+
 .phase-tag {
     display: -moz-inline-stack;
     display: inline-block;
