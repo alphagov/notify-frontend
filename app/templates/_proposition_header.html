@@ -1,15 +1,21 @@
 <div class="header-proposition">
-    <div class="content">
-        <nav id="proposition-menu">
-            <a href="{{ url_for('main.view_dashboard')}}" id="proposition-name">Notifications</a> <strong class="phase-tag">ALPHA</strong>
-        </nav>
-        
-        {% if current_user.email_address %}
-        <ul id="proposition-links">
-            <li>
-                <a href="{{ url_for('main.logout') }}">Log out</a>
-            </li>
-        </ul>
-        {% endif %}
-    </div>
+  <div class="content">
+    <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
+    <nav id="proposition-menu">
+      <a href="{{ url_for('main.view_dashboard')}}" id="proposition-name">
+        Notify
+        <strong class="phase-tag">ALPHA</strong>
+      </a>
+      {% if current_user.email_address %}
+      <ul id="proposition-links">
+        <li>
+          <a href="#">{{ current_user.email_address }}</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.logout') }}">Log out</a>
+        </li>
+      </ul>
+      {% endif %}
+    </nav>
+  </div>
 </div>

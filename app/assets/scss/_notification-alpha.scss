@@ -6,19 +6,16 @@
   width: 50%;
 }
 
-
-
 label.question-heading {
   margin: 0;
   font-weight: normal;
 }
 
-
 .phase-tag {
     display: -moz-inline-stack;
     display: inline-block;
     vertical-align: top;
-    margin: 5px 8px 0 10px;
+    margin: 0 8px 0 10px;
     padding: 2px 5px 0;
     font-family: "nta", Arial, sans-serif;
     font-size: 14px;
@@ -30,4 +27,35 @@ label.question-heading {
     text-decoration: none;
     color: #fff;
     background-color: #d53880;
+    @include media (tablet) {
+      margin-top: 5px;
+    }
+}
+
+@include media(mobile) {
+  #global-header .header-proposition #proposition-link li, #global-header .header-proposition #proposition-links li {
+    width: 100%;
+  }
+}
+
+@include media(desktop) {
+  #global-header.with-proposition .header-wrapper {
+    .header-global, .header-proposition {
+      float: none;
+      width: 100%;
+    }
+    .header-proposition {
+      margin-top: 8px;
+    }
+    #proposition-name {
+      width: 33.3%;
+      margin-left: 2px;
+    }
+    #proposition-links {
+      float: right;
+      li {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
 }
