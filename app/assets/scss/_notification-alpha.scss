@@ -59,3 +59,26 @@ label.question-heading {
     }
   }
 }
+
+.dashboard-services-list {
+  h2 {
+    @include heading-24();
+    @include bold-24();
+  }
+  .service-options li {
+    @include bold-24();
+    margin: 15px 0;
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.new-service-link {
+  margin-top: 50px;
+  @include heading-24();
+  @include core-24();
+  a {
+    text-decoration: none;
+  }
+}
