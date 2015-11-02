@@ -4,7 +4,7 @@ from .. import main
 from . import get_template_data
 from app.user import User
 from app.main.forms import LoginForm
-from ... import data_api_client
+from app import admin_api_client
 from flask_login import login_user, logout_user
 
 
@@ -18,7 +18,7 @@ def process_login():
     next_url = request.args.get('next')
     form = LoginForm()
     if form.validate_on_submit():
-        user_json = data_api_client.authenticate_user(form.email_address.data, form.password.data)
+        user_json = admin_api_client.authenticate_user(form.email_address.data, form.password.data)
         if user_json:
             user = User.from_json(user_json)
             login_user(user)

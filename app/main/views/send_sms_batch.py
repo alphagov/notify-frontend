@@ -1,20 +1,23 @@
+from io import StringIO
+
 from flask import render_template, redirect, request, url_for, session, flash
+from werkzeug import secure_filename
+
 from .. import main
 from . import get_template_data
-from app import data_api_client
+from app import admin_api_client
+from app import notify_api_client
 from app.csv_parser import transform
 from notify_client.errors import APIError
-from flask_login import login_required, current_user
-from werkzeug import secure_filename
+from flask_login import login_required
 from app.main.forms import CreateSMSBatchForm
 from app.main.views import allowed_file
-from io import StringIO
 
 
 @main.route('/service/<int:service_id>/send-sms-batch', methods=['GET'])
 @login_required
 def render_send_sms_batch(service_id):
-    service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
+    service = admin_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
     return render_template(
         "send_sms_batch.html",
         form=CreateSMSBatchForm(),
@@ -28,7 +31,7 @@ def render_send_sms_batch(service_id):
 def process_sms_bulk(service_id):
     form = CreateSMSBatchForm()
 
-    service = data_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
+    service = admin_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
     if form.validate_on_submit():
         uploaded = request.files['sms-bulk-upload']
         if uploaded and allowed_file(uploaded.filename):
@@ -42,10 +45,10 @@ def process_sms_bulk(service_id):
                     service=service['service'],
                     **get_template_data()
                 ), 400
-            job = data_api_client.create_job(form.description.data, filename, service_id)
+            job = admin_api_client.create_job(form.description.data, filename, service_id)
             for notification in data['notifications']:
                 try:
-                    data_api_client.send_sms(
+                    notify_api_client.send_sms(
                         notification['to'],
                         notification['message'],
                         job_id=job["job"]["id"],

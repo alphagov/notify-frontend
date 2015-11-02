@@ -36,9 +36,9 @@ class User():
         )
 
     @staticmethod
-    def load_user(data_api_client, user_id):
+    def load_user(admin_api_client, user_id):
         """Load a user from the API and hydrate the User model"""
-        user_json = data_api_client.get_user_by_id(int(user_id))
+        user_json = admin_api_client.get_user_by_id(int(user_id))
 
         if user_json:
             user = User.from_json(user_json)
