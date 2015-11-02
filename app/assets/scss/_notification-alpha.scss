@@ -6,9 +6,13 @@
   width: 50%;
 }
 
-label.question-heading {
+label.question-heading,label.question-heading-with-hint {
   margin: 0;
   font-weight: normal;
+}
+
+.summary-item-field-heading-first, .summary-item-field-heading {
+    padding: 10px 0 10px 0px;
 }
 
 .phase-tag {
