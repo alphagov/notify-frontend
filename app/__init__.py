@@ -8,7 +8,6 @@ from flask._compat import string_types
 
 from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
-from notify_client import NotifyAPIClient
 from app.notify_client.api_client import AdminAPIClient
 from app.user import User
 from config import configs
@@ -21,7 +20,6 @@ EUROPE_LONDON = pytz.timezone("Europe/London")
 csrf = CsrfProtect()
 login_manager = LoginManager()
 admin_api_client = AdminAPIClient()
-notify_api_client = NotifyAPIClient()
 
 
 def create_app(config_name):
@@ -54,7 +52,6 @@ def create_app(config_name):
 
     login_manager.init_app(application)
     admin_api_client.init_app(application)
-    notify_api_client.init_app(application)
     proxy_fix.init_app(application)
 
     from .main import main as main_blueprint

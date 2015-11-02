@@ -5,7 +5,6 @@ from . import get_template_data
 from flask_login import login_required
 from app.main.forms import SmsForm
 from app import admin_api_client
-from app import notify_api_client
 from notify_client.errors import APIError
 
 
@@ -22,7 +21,7 @@ def process_sms(service_id):
     if form.validate_on_submit():
         service = admin_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
         try:
-            notify_api_client.send_sms(
+            admin_api_client.send_sms(
                 form.mobile_number.data,
                 form.message.data,
                 description=form.description.data,

@@ -3,7 +3,6 @@ from random import randint
 from flask import render_template, redirect, url_for, session, flash
 
 from app import admin_api_client
-from app import notify_api_client
 from .. import main
 from . import get_template_data
 from app.main.forms import RegistrationForm
@@ -25,7 +24,7 @@ def process_registration():
             code = ''.join(["%s" % randint(0, 9) for num in range(0, 5)])
             session['code'] = hashpw(code)
             session['new_user_id'] = user['users']['id']
-            notify_api_client.send_sms(form.mobile_number.data, code)
+            admin_api_client.send_sms(form.mobile_number.data, code)
             return redirect(url_for('.view_3fa'))
         except APIError as e:
             print(e.response.json())

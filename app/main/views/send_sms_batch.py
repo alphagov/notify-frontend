@@ -6,7 +6,6 @@ from werkzeug import secure_filename
 from .. import main
 from . import get_template_data
 from app import admin_api_client
-from app import notify_api_client
 from app.csv_parser import transform
 from notify_client.errors import APIError
 from flask_login import login_required
@@ -48,7 +47,7 @@ def process_sms_bulk(service_id):
             job = admin_api_client.create_job(form.description.data, filename, service_id)
             for notification in data['notifications']:
                 try:
-                    notify_api_client.send_sms(
+                    admin_api_client.send_sms(
                         notification['to'],
                         notification['message'],
                         job_id=job["job"]["id"],
