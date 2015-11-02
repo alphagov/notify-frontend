@@ -1,8 +1,7 @@
 {% extends "_base_page.html" %}
 {% block page_title %}
-GOV.UK Notify
+Dashboard – GOV.UK Notify
 {% endblock %}
-
 
 {% block content %}
 
@@ -13,58 +12,63 @@ GOV.UK Notify
     {% for category, message in messages %}
     {% if category == 'success' %}
     <div class="banner-success-without-action">
-            {% if message == 'service_created' %}
-            <p class="banner-message">
-                You have created a service
-            </p>
-            {% endif %}
+        {% if message == 'service_created' %}
+        <p class="banner-message">
+            You have created a service
+        </p>
+        {% endif %}
     </div>
     {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}
 
-
-    <header class="page-heading">
+    <header class="page-heading-smaller">
         <h1>Dashboard</h1>
     </header>
 
-    <ul>
-        {% for service in services %}
-        <li class="browse-list-item">
-            <a class="browse-list-item-link" href="{{ url_for('.view_service', service_id=service.id)}}"><span> {{ service.name }}</span></a>
+    <div class="grid-row">
 
-            <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.send_sms', service_id=service.id)}}">Send an SMS</a>
-            </p>
+        <ul class="column-two-thirds">
+            {% for service in services %}
+            <li class="dashboard-services-list">
+                <h2>{{ service.name }}</h2>
+                <ul class="service-options">
+                    <li>
+                        <a href="{{ url_for('.send_sms', service_id=service.id)}}">Send an SMS</a>
+                    </li>
 
-            <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.render_send_sms_batch', service_id=service.id)}}">Send an SMS Batch</a>
-            </p>
+                    <li>
+                        <a href="{{ url_for('.render_send_sms_batch', service_id=service.id)}}">Send an SMS Batch</a>
+                    </li>
 
-            <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.render_send_email_batch', service_id=service.id)}}">Send an email batch</a>
-            </p>
+                    <li>
+                        <a href="{{ url_for('.render_send_email_batch', service_id=service.id)}}">Send an email batch</a>
+                    </li>
 
-            <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.view_all_jobs', service_id=service.id)}}">View notification history</a>
-            </p>
+                    <li>
+                        <a href="{{ url_for('.view_all_jobs', service_id=service.id)}}">View notification history</a>
+                    </li>
 
-             <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.view_service_users', service_id=service.id)}}">Manage users</a>
-            </p>
+                    <li>
+                        <a href="{{ url_for('.view_service_users', service_id=service.id)}}">Manage users</a>
+                    </li>
 
-             <p class="browse-list-item-subtext">
-                <a href="{{ url_for('.view_api', service_id=service.id)}}">Manage API keys</a>
-            </p>
+                    <li>
+                        <a href="{{ url_for('.view_api', service_id=service.id)}}">Manage API keys</a>
+                    </li>
 
-        </li>
-        {% endfor %}
-    </ul>
-    <header class="page-heading-smaller">
-        <p class="context">
-            <a href="{{ url_for('.view_create_service') }}">Set up a new service</a>
-        </p>
-    </header>
+                    <li>
+                        <a href="{{ url_for('.view_service', service_id=service.id)}}">Service settings</a>
+                    </li>
+                </ul>
+
+            </li>
+            {% endfor %}
+            <li class="new-service-link">
+                <a href="{{ url_for('.view_create_service') }}">Set up a new service</a>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}
