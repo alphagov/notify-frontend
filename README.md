@@ -9,13 +9,11 @@ Python app, based on the [Flask framework](http://flask.pocoo.org/)
 ## Setup
 
 Install [Virtualenv](https://virtualenv.pypa.io/en/latest/)
-
 ```
 sudo easy_install virtualenv
 ```
 
 In the app folder, create a virtual environment
-
 ```
 virtualenv ./venv
 ```
@@ -44,13 +42,11 @@ export NOTIFY_DATA_API_AUTH_TOKEN=<bearer_token>
 ### Upgrade dependencies
 
 Install new Python dependencies with pip
-
 ```
 pip install -r requirements_for_test.txt
 ```
 
 Install frontend dependencies with npm and gulp
-
 ```
 npm install
 ```
@@ -58,25 +54,25 @@ npm install
 ### Compile the front-end code
 
 For development usage:
-
 ```
 npm run frontend-build:development
 ```
 
 For production:
-
 ```
 npm run frontend-build:production
 ```
 
-Note: running `npm run frontend-build:watch` will also build the front-end code.
+### Compiling the front-end whenever it changes
+```
+npm run frontend-build:watch
+```
 
 ### Run the tests
 
 ```
 ./scripts/run_tests.sh
 ```
-
 
 ### Run the server
 
@@ -128,7 +124,7 @@ export NOTIFY_DATA_API_AUTH_TOKEN=<bearer_token>
 ```
 pip install -r requirements_for_test.txt
 npm install
-npm run frontend-build:development
+npm run frontend-build:watch
 ./scripts/run_app.sh
 
 
