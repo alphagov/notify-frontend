@@ -1,9 +1,10 @@
 from flask import render_template, redirect, url_for, session, flash
+
 from .. import main
 from . import get_template_data
-from flask_login import login_required, current_user
+from flask_login import login_required
 from app.main.forms import ServiceForm
-from app import data_api_client
+from app import admin_api_client
 from notify_client.errors import APIError
 
 
@@ -20,7 +21,7 @@ def create_service():
     form = ServiceForm()
     if form.validate_on_submit():
         try:
-            data_api_client.create_service(
+            admin_api_client.create_service(
                 form.service_name.data,
                 int(session['user_id'])
             )
