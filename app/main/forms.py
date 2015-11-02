@@ -22,7 +22,7 @@ class InviteUserForm(Form):
 
 class ThreeFAForm(Form):
     sms_code = StringField('SMS Code', validators=[
-        DataRequired(message='Email cannot be empty'),
+        DataRequired(message='SMS cannot be empty'),
     ])
 
 
