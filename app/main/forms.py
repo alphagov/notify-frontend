@@ -21,7 +21,7 @@ class InviteUserForm(Form):
 
 
 class ThreeFAForm(Form):
-    sms_code = StringField('SMS Code', validators=[
+    sms_code = StringField('SMS code', validators=[
         DataRequired(message='SMS cannot be empty'),
     ])
 
