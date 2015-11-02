@@ -38,14 +38,16 @@ export DM_DATA_API_AUTH_TOKEN=<bearer_token>
 To use the test instance on heroku:
 ```
 export NOTIFY_API_URL=https://test-notify-api.herokuapp.com/
-export NOTIFY_DATA_API_AUTH_TOKEN= ask @minglis
+export NOTIFY_DATA_API_AUTH_TOKEN=<bearer_token>
 ```
 
 ### Upgrade dependencies
 
 Install new Python dependencies with pip
 
-```pip install -r requirements_for_test.txt```
+```
+pip install -r requirements_for_test.txt
+```
 
 Install frontend dependencies with npm and gulp
 
@@ -113,13 +115,19 @@ Note: `npm run frontend-install` is run as a post-install task after you run `np
 
 ```
 source ./venv/bin/activate
+```
+```
 export DM_DATA_API_URL=http://localhost:5000
+export DM_DATA_API_AUTH_TOKEN=<bearer_token>
 ```
 or
 ```
-export NOTIFY_API_URL=https://test-notify-api.herokuapp.com/`
-export DM_DATA_API_AUTH_TOKEN=<bearer_token>`
-pip install -r requirements_for_test.txt`
+export NOTIFY_API_URL=https://test-notify-api.herokuapp.com/
+export NOTIFY_DATA_API_AUTH_TOKEN=<bearer_token>
+```
+```
+pip install -r requirements_for_test.txt
+npm install
 npm run frontend-build:development
 ./scripts/run_app.sh
 ```
