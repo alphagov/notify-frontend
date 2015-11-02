@@ -5,17 +5,6 @@ GOV.UK Notify
 
 
 {% block content %}
-{% block breadcrumb %}
-{%
-with items = [
-{
-"label": "Dashboard"
-}
-]
-%}
-{% include "toolkit/breadcrumb.html" %}
-{% endwith %}
-{% endblock %}
 
 <div class="page-container">
 
@@ -36,13 +25,8 @@ with items = [
     {% endwith %}
 
 
-    <header class="page-heading page-heading-with-context page-heading-without-breadcrumb"><p class="context">
-        {{ current_user.email_address }}
-    </p>
-
-        <h1>
-            Dashboard
-        </h1>
+    <header class="page-heading">
+        <h1>Dashboard</h1>
     </header>
 
     <ul>
