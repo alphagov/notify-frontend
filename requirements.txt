@@ -15,4 +15,4 @@ markdown==2.6.2
 pyOpenSSL==0.14
 pytz==2015.4
 
-git+https://github.com/alphagov/notify-api-client.git@0.0.9#egg=notify-api-client==0.0.9
+git+https://github.com/alphagov/notify-api-client.git@0.0.10#egg=notify-api-client==0.0.10
