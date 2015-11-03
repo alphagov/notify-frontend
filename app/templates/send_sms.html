@@ -5,29 +5,16 @@ GOV.UK Notify
 
 {% block content %}
 
-{% block breadcrumb %}
-  {%
-    with items = [
-      {
-        "link": url_for('main.view_dashboard'),
-        "label": "Dashboard"
-      },
-      {
-        "link": url_for('main.view_service', service_id=service.id),
-        "label": service.name
-      },
-    {
-        "label": 'Send an SMS'
-      }
-    ]
-  %}
-    {% include "toolkit/breadcrumb.html" %}
-  {% endwith %}
-{% endblock %}
-
-
 <div class="page-container">
 
+    {%
+    with
+    heading = "Send an SMS"
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
+
+    {# Display error messages #}
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -49,37 +36,10 @@ GOV.UK Notify
     {% endif %}
     {% endwith %}
 
-    {%
-    with
-    heading = "Send an SMS"
-    %}
-    {% include "toolkit/page-heading.html" %}
-    {% endwith %}
-
-
     <form autocomplete="off" action="" method="post">
         {{ form.hidden_tag() }}
         <div class="grid-row">
             <div class="column-two-thirds">
-
-                {% if form.description.errors %}
-                <div class="validation-wrapper">
-                    {% endif %}
-                    <div class="question">
-                        {{ form.description.label(class="question-heading-with-hint") }}
-                        <p class="hint">
-                            Enter the description of the notification
-                        </p>
-                        {% if form.description.errors %}
-                        <p class="validation-message" id="error-description-textbox">
-                            {% for error in form.description.errors %}{{ error }}{% endfor %}
-                        </p>
-                        {% endif %}
-                        {{ form.description(class="text-box", autocomplete="off") }}
-                    </div>
-                    {% if form.description.errors %}
-                </div>
-                {% endif %}
 
                 {% if form.mobile_number.errors %}
                 <div class="validation-wrapper">
@@ -87,7 +47,7 @@ GOV.UK Notify
                     <div class="question">
                         {{ form.mobile_number.label(class="question-heading-with-hint") }}
                         <p class="hint">
-                            UK mobile numbers only, including the country code (+44)
+                            e.g. +447700900157
                         </p>
                         {% if form.message.errors %}
                         <p class="validation-message" id="error-email-address-textbox">
@@ -110,9 +70,28 @@ GOV.UK Notify
                             {% for error in form.message.errors %}{{ error }}{% endfor %}
                         </p>
                         {% endif %}
-                        {{ form.message(class="text-box", autocomplete="off") }}
+                        {{ form.message(class="text-box text-area", autocomplete="off", rows=3, cols=60) }}
                     </div>
                     {% if form.message.errors %}
+                </div>
+                {% endif %}
+
+                {% if form.description.errors %}
+                <div class="validation-wrapper">
+                    {% endif %}
+                    <div class="question">
+                        {{ form.description.label(class="question-heading-with-hint") }}
+                        <p class="hint">
+                            Saved in your notification history – not sent with this message
+                        </p>
+                        {% if form.description.errors %}
+                        <p class="validation-message" id="error-description-textbox">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </p>
+                        {% endif %}
+                        {{ form.description(class="text-box", autocomplete="off") }}
+                    </div>
+                    {% if form.description.errors %}
                 </div>
                 {% endif %}
 
