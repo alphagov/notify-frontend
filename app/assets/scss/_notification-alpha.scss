@@ -79,6 +79,12 @@ label.question-heading,label.question-heading-with-hint {
     margin: 15px 0;
     a {
       text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:visited {
+        color: $link-colour;
+      }
     }
   }
 }
@@ -89,5 +95,11 @@ label.question-heading,label.question-heading-with-hint {
   @include core-24();
   a {
     text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      color: $link-colour;
+    }
   }
 }
