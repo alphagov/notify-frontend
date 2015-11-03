@@ -4,36 +4,28 @@ GOV.UK Notify
 {% endblock %}
 
 {% block content %}
+{% if current_user.services|length > 1 %}
 {% block breadcrumb %}
-  {%
-    with items = [
+  {% with items = [
       {
-        "link": url_for('main.view_dashboard'),
-        "label": "Dashboard"
-      },
-      {
-        "link": url_for('main.view_service', service_id=service.id),
         "label": service.name
-      },
-        {
-        "link": url_for('main.view_all_jobs', service_id=service.id),
-        "label": 'Jobs'
-      },
-    {
-        "label": 'Notification'
       }
-    ]
-  %}
-    {% include "toolkit/breadcrumb.html" %}
+  ]%}
+  {% include "toolkit/breadcrumb.html" %}
   {% endwith %}
 {% endblock %}
+{% endif %}
 <div class="page-container">
 
+    {%
+    with
+    heading = job.name,
+    smaller = true
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
 
-<h2 class="summary-item-heading">
-    Notifications for job: {{ job.name }}
-</h2>
-
+    <p>{{ services|length }}</p>
 
   <table class="summary-item-body">
     <caption class="visuallyhidden">

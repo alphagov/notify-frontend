@@ -1,32 +1,19 @@
 {% extends "_base_page.html" %}
 {% block page_title %}
-GOV.UK Notify
+History – {{ service.name }} – GOV.UK Notify
 {% endblock %}
-
-
 
 {% block content %}
-{% block breadcrumb %}
-  {%
-    with items = [
-      {
-        "link": url_for('main.view_dashboard'),
-        "label": "Dashboard"
-      },
-      {
-        "link": url_for('main.view_service', service_id=service.id),
-        "label": service.name
-      },
-    {
-        "label": 'History'
-      }
-    ]
-  %}
-    {% include "toolkit/breadcrumb.html" %}
-  {% endwith %}
-{% endblock %}
 
 <div class="page-container">
+
+    {%
+    with
+    heading = "Notification history",
+    smaller = true
+    %}
+    {% include "toolkit/page-heading.html" %}
+    {% endwith %}
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -49,78 +36,55 @@ GOV.UK Notify
     {% endif %}
     {% endwith %}
 
-
-    {%
-    with
-    heading = "History"
-    %}
-    {% include "toolkit/page-heading.html" %}
-    {% endwith %}
-
-
-  <table class="summary-item-body">
-    <thead class="summary-item-field-headings-visible">
-      <tr>
-
+    <table class="summary-item-body">
+      <thead class="summary-item-field-headings-visible">
+        <tr>
           <th scope="col" class="summary-item-field-heading-first">
-
-              Name
-
+            Name
           </th>
-
           <th scope="col" class="summary-item-field-heading">
-
-              Filename
-
+            Filename
           </th>
-
           <th scope="col" class="summary-item-field-heading">
-
-              Created on
-
+            Created on
           </th>
-
           <th scope="col" class="summary-item-field-heading">
-
-              <span class="hidden">Action</span>
-
+            <span class="hidden">Action</span>
           </th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+      {% for job in jobs %}
+      <tr class="summary-item-row">
+        <td class="summary-item-field-first-wider">
+          <span>
+            {{ job.name }}
+          </span>
+        </td>
+        <td class="summary-item-field">
+          <span>
+            {{ job.filename }}
+          </span>
+        </td>
+        <td class="summary-item-field">
+          <span>
+            {{ job.createdAt|datetimeformat }}
+          </span>
+        </td>
+        <td class="summary-item-field-with-action">
+          <span>
+            <a href="{{ url_for('main.view_notification', service_id=service.id, job_id=job.id) }}">View</a>
+          </span>
+        </td>
 
       </tr>
-    </thead>
-    <tbody>
+      {% endfor %}
 
 
-    {% for job in jobs %}
-    <tr class="summary-item-row">
-
-    <td class="summary-item-field-first-wider">
-    <span>
-    {{ job.name }}
-    </span>
-    </td>
-    <td class="summary-item-field">
-    <span>
-    {{ job.filename }}
-    </span>
-    </td>
-    <td class="summary-item-field">
-    <span>
-    {{ job.createdAt|datetimeformat }}
-    </span>
-    </td>
-    <td class="summary-item-field-with-action">
-    <span>
-    <a href="{{ url_for('main.view_notification', service_id=service.id, job_id=job.id) }}">View</a>
-    </span>
-    </td>
-
-    </tr>
-    {% endfor %}
-
-
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
 
 </div>
