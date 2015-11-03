@@ -107,6 +107,12 @@ class AdminAPIClient(NotifyAPIClient):
     def deactivate_service(self, service_id):
         return self._post('/service/{}/deactivate'.format(service_id), data={})
 
+    def restrict_service(self, service_id):
+        return self._post('/service/{}/restrict'.format(service_id), data={})
+
+    def unrestrict_service(self, service_id):
+        return self._post('/service/{}/unrestrict'.format(service_id), data={})
+
     def create_job(self, job_name, filename, service_id):
         return self._post(
             '/job',

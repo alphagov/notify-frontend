@@ -7,6 +7,7 @@ from . import get_template_data
 from app import admin_api_client
 from flask_login import login_required
 from notify_client.errors import APIError
+from app.main.auth import role_required
 from app.main.forms import BaseForm
 
 
@@ -47,6 +48,32 @@ def deactivate_service(service_id):
     try:
         admin_api_client.deactivate_service(service_id)
         flash("Service deactivated", "success")
+        return redirect(url_for('.view_service', service_id=service_id))
+    except APIError as ex:
+        flash(ex.message, "error")
+        return redirect(url_for('.view_service', service_id=service_id))
+
+
+@main.route('/service/<int:service_id>/unrestrict', methods=['POST'])
+@login_required
+@role_required('platform-admin')
+def unrestrict_service(service_id):
+    try:
+        admin_api_client.unrestrict_service(service_id)
+        flash("Service unrestricted", "success")
+        return redirect(url_for('.view_service', service_id=service_id))
+    except APIError as ex:
+        flash(ex.message, "error")
+        return redirect(url_for('.view_service', service_id=service_id))
+
+
+@main.route('/service/<int:service_id>/restrict', methods=['POST'])
+@login_required
+@role_required('platform-admin')
+def restrict_service(service_id):
+    try:
+        admin_api_client.restrict_service(service_id)
+        flash("Service restricted", "success")
         return redirect(url_for('.view_service', service_id=service_id))
     except APIError as ex:
         flash(ex.message, "error")

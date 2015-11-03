@@ -53,6 +53,28 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+{% if current_user.has_role('platform-admin') %}
+
+ {% if not service.restricted %}
+     <form autocomplete="off" action="{{ url_for('.restrict_service', service_id=service.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <button class="button-save">Restrict service</button>
+            </div>
+        </div>
+    </form>
+    {% else %}
+    <form autocomplete="off" action="{{ url_for('.unrestrict_service', service_id=service.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <button class="button-destructive">Unrestrict service</button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+{% endif %}
 
 
 
@@ -139,6 +161,7 @@ GOV.UK Notify
         </div>
     </form>
     {% endif %}
+
 
 </div>
 {% endblock %}
