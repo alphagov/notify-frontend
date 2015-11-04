@@ -17,18 +17,10 @@ def view_3fa():
 def submit_3fa():
     form = ThreeFAForm()
     if form.validate_on_submit():
-        original_code = session['code']
-        if checkpw(form.sms_code.data, original_code):
-            user_json = admin_api_client.activate_user(session['new_user_id'])
-            user = User.from_json(user_json)
-            login_user(user)
-            return redirect(url_for('.view_dashboard'))
-        else:
-            flash("invalid code", "error")
-            return render_template(
-                '3fa.html',
-                **get_template_data(form=form)
-            ), 403
+        user_json = admin_api_client.activate_user(session['new_user_id'])
+        user = User.from_json(user_json)
+        login_user(user)
+        return redirect(url_for('.view_dashboard'))
     else:
         return render_template(
             '3fa.html',
