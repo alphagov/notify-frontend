@@ -1,1 +1,1 @@
-web: python application.py runserver --timeout 30
+web: python application.py runserver
