@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length
 
 
@@ -8,7 +8,7 @@ class BaseForm(Form):
 
 
 class CreateSMSBatchForm(Form):
-    description = StringField('Description', validators=[
+    description = StringField('Batch description', validators=[
         DataRequired(message='Description cannot be empty')
     ])
 
@@ -41,7 +41,7 @@ class RegistrationForm(Form):
         DataRequired(message='Email cannot be empty'),
         Email(message='Please enter a valid email address')
     ])
-    mobile_number = StringField('Mobile number', validators=[
+    mobile_number = StringField('UK mobile number including country code (+44)', validators=[
         DataRequired(message='Mobile number cannot be empty')
     ])
     password = PasswordField('Password', validators=[
@@ -53,7 +53,7 @@ class SmsForm(Form):
     mobile_number = StringField('Mobile number', validators=[
         DataRequired(message='Mobile number cannot be empty')
     ])
-    message = StringField('Message', validators=[
+    message = TextAreaField('Message', validators=[
         DataRequired(message='Message cannot be empty')
     ])
     description = StringField('Description')

@@ -1,22 +1,10 @@
-.text-box {
-  height: 38px;
-}
 
-.text-box.medium {
-  width: 50%;
-}
-
-label.question-heading,label.question-heading-with-hint {
-  margin: 0;
-  font-weight: normal;
-}
 
 .summary-item-field-heading-first, .summary-item-field-heading {
     padding: 10px 0 10px 0px;
 }
 
 .summary-item-field-first, .summary-item-field-first-wider, .summary-item-field-with-action, .summary-item-field {
-
     padding-left: 0px;
 }
 
@@ -79,6 +67,12 @@ label.question-heading,label.question-heading-with-hint {
     margin: 15px 0;
     a {
       text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:visited {
+        color: $link-colour;
+      }
     }
   }
 }
@@ -89,5 +83,27 @@ label.question-heading,label.question-heading-with-hint {
   @include core-24();
   a {
     text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      color: $link-colour;
+    }
   }
+}
+
+.text-box.medium {
+  width: 50%;
+}
+
+.question-heading, .question-heading-with-hint {
+  @include bold-19();
+}
+
+.text-area {
+  height: inherit;
+}
+
+.button-save {
+  @include bold-19();
 }
