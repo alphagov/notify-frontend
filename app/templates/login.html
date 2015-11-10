@@ -7,10 +7,13 @@ GOV.UK Notify
 
 <div class="page-container">
 
+<div class="grid-row">
+    <div class="column-two-thirds">
 
     {%
     with
-    heading = "Administrator login"
+    heading = "Sign in to GOV.UK Notify",
+    smaller = true
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
@@ -25,7 +28,7 @@ GOV.UK Notify
                 Make sure you've entered the right email address and password.
                 Accounts are locked after 5 failed attempts. If you think your
                 account has been locked, email
-                <a href="mailto:notify@digital.cabinet-office.gov.uk">notify@digital.cabinet-office.gov.ukk</a>.
+                <a href="mailto:notify@digital.cabinet-office.gov.uk">notify@digital.cabinet-office.gov.uk</a>.
             </p>
             {% endif %}
     </div>
@@ -57,52 +60,51 @@ GOV.UK Notify
     </div>
     {% endif %}
 
-
     <form autocomplete="off" action="" method="post">
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                {{ form.hidden_tag() }}
+        {{ form.hidden_tag() }}
 
+        {% if form.email_address.errors %}
+        <div class="validation-wrapper">
+            {% endif %}
+            <div class="question">
+                {{ form.email_address.label(class="question-heading") }}
                 {% if form.email_address.errors %}
-                <div class="validation-wrapper">
-                    {% endif %}
-                    <div class="question">
-                        {{ form.email_address.label(class="question-heading") }}
-                        {% if form.email_address.errors %}
-                        <p class="validation-message" id="error-email-address-textbox">
-                            {% for error in form.email_address.errors %}{{ error }}{% endfor %}
-                        </p>
-                        {% endif %}
-                        {{ form.email_address(class="text-box", autocomplete="off") }}
-                    </div>
-                    {% if form.email_address.errors %}
-                </div>
+                <p class="validation-message" id="error-email-address-textbox">
+                    {% for error in form.email_address.errors %}{{ error }}{% endfor %}
+                </p>
                 {% endif %}
-
-                {% if form.password.errors %}
-                <div class="validation-wrapper">
-                    {% endif %}
-                    <div class="question">
-                        {{ form.password.label(class="question-heading") }}
-                        {% if form.password.errors %}
-                        <p class="validation-message" id="error-password-textbox">
-                            {% for error in form.password.errors %}{{ error }}{% endfor %}
-                        </p>
-                        {% endif %}
-                        {{ form.password(class="text-box", autocomplete="off") }}
-                    </div>
-                    {% if form.password.errors %}
-                </div>
-                {% endif %}
-
-                <button class="button-save">Log in</button>
+                {{ form.email_address(class="text-box", autocomplete="off") }}
             </div>
+            {% if form.email_address.errors %}
         </div>
+        {% endif %}
+
+        {% if form.password.errors %}
+        <div class="validation-wrapper">
+            {% endif %}
+            <div class="question">
+                {{ form.password.label(class="question-heading") }}
+                {% if form.password.errors %}
+                <p class="validation-message" id="error-password-textbox">
+                    {% for error in form.password.errors %}{{ error }}{% endfor %}
+                </p>
+                {% endif %}
+                {{ form.password(class="text-box", autocomplete="off") }}
+            </div>
+            {% if form.password.errors %}
+        </div>
+        {% endif %}
+
+        <button class="button-save">Sign in</button>
     </form>
-    <header class="page-heading-smaller">
-        <p class="context">
-            <a href="{{ url_for('.render_registration_page') }}">Register</a>
-        </p>
-    </header>
+    </div>
+
+    <div class="column-one-third column-sign-up">
+        <h2>Sign up</h2>
+        <p>Anyone with a gov.uk email address can send notifications by text message, email and letter</p>
+        <p><a href="{{ url_for('.render_registration_page') }}">Create an account</a></p>
+    </div>
+</div>
+
 </div>
 {% endblock %}
