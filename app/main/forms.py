@@ -13,6 +13,12 @@ class CreateSMSBatchForm(Form):
     ])
 
 
+class CreateEmailBatchForm(Form):
+    description = StringField('Batch description', validators=[
+        DataRequired(message='Description cannot be empty')
+    ])
+
+
 class InviteUserForm(Form):
     email_address = StringField('Email address', validators=[
         DataRequired(message='Email cannot be empty'),

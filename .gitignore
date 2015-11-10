@@ -66,3 +66,4 @@ app/content
 
 # Front end generated assets
 app/static
+.idea/

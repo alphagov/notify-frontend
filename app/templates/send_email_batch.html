@@ -33,17 +33,45 @@ GOV.UK Notify
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
 
+    {% if errors|length > 0 %}
+    <div class="validation-masthead" aria-labelledby="validation-masthead-heading">
+        <h3 class="validation-masthead-heading" id="validation-masthead-heading">
+            The CSV has an issue
+        </h3>
+        {% for error in errors %}
+        <a href="#example-textbox" class="validation-masthead-link">{{ error }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-    <form action="" method="post" id="bulk-sms" enctype="multipart/form-data">
+    <form action="" method="post" id="bulk-email" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
+        {% if form.description.errors %}
+        <div class="validation-wrapper">
+            {% endif %}
+            <div class="question">
+                {{ form.description.label(class="question-heading-with-hint") }}
+                <p class="hint">
+                    Enter the description of the notification
+                </p>
+                {% if form.description.errors %}
+                <p class="validation-message" id="error-description-textbox">
+                    {% for error in form.description.errors %}{{ error }}{% endfor %}
+                </p>
+                {% endif %}
+                {{ form.description(class="text-box", autocomplete="off") }}
+            </div>
+            {% if form.description.errors %}
+        </div>
+        {% endif %}
       {%
         with
         name = "email-bulk-upload"
         %}
         {% include "toolkit/forms/upload.html" %}
         <button class="button-save">Upload batch</button>
+      {% endwith %}
 
-{% endwith %}
     </form>
 
 </div>

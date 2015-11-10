@@ -7,21 +7,14 @@ Frontend app for the [Notify API](https://github.com/alphagov/notify-api)
 Python app, based on the [Flask framework](http://flask.pocoo.org/)
 
 ## Setup
+#### Dependency management
 
-Install [Virtualenv](https://virtualenv.pypa.io/en/latest/)
-```
-sudo easy_install virtualenv
-```
+This is done through [pip](pip.readthedocs.org/) and [virtualenv](https://virtualenv.readthedocs.org/en/latest/). In practise we have used
+[VirtualEnvWrapper](http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html) for our virtual environemnts.
 
-In the app folder, create a virtual environment
-```
-virtualenv ./venv
-```
+Setting up a virtualenvwrapper for python3
 
-Activate the virtual environment
-```
-source ./venv/bin/activate
-```
+    mkvirtualenv -p /usr/local/bin/python3 notify-frontend
 
 ### Set the required environment variables
 
@@ -38,6 +31,7 @@ To use the test instance on heroku:
 export NOTIFY_API_URL=https://test-notify-api.herokuapp.com/
 export NOTIFY_DATA_API_AUTH_TOKEN=<bearer_token>
 ```
+
 
 ### Upgrade dependencies
 
