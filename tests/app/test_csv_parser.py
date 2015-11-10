@@ -58,10 +58,10 @@ def test_should_parse_valid_email_csv(notify_frontend):
 
     transformed = transform_email(valid_email_file)
     assert len(transformed['notifications']) == 2
-    assert transformed['notifications'][0]['to'] == 'rebecca.law@digital.cabinet-office.gov.uk'
-    assert transformed['notifications'][1]['to'] == 'rebecca.law@digital.cabinet-office.gov.uk'
-    assert transformed['notifications'][0]['from'] == 'rebecca.law@digital.cabinet-office.gov.uk'
-    assert transformed['notifications'][1]['from'] == 'rebecca.law@digital.cabinet-office.gov.uk'
+    assert transformed['notifications'][0]['to'] == 'jo@example.com'
+    assert transformed['notifications'][1]['to'] == 'sue@example.com'
+    assert transformed['notifications'][0]['from'] == 'example@service.gov.uk'
+    assert transformed['notifications'][1]['from'] == 'example@service.gov.uk'
     assert transformed['notifications'][0]['subject'] == 'email test subject'
     assert transformed['notifications'][1]['subject'] == 'email test subject2'
     assert transformed['notifications'][0]['message'] == 'email test message'
