@@ -26,7 +26,6 @@ def render_send_email_batch(service_id):
 @main.route('/service/<int:service_id>/send-email-batch', methods=['POST'])
 @login_required
 def process_email_batch(service_id):
-    print("start process_email_batch")
     form = CreateEmailBatchForm()
     service = admin_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
     file = request.files['email-bulk-upload']
@@ -41,10 +40,7 @@ def process_email_batch(service_id):
                                    **get_template_data()
                                    ), 400
         job = admin_api_client.create_job(form.description.data, filename, service_id)
-        print("job {}".format(job))
-        print(data)
         for notification in data['notifications']:
-            print("**noifitcation {}".format(notification))
             try:
                 admin_api_client.send_email(
                     notification['to'],

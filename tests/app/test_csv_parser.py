@@ -76,7 +76,6 @@ def test_should_reject_email_with_too_many_lines(notify_frontend):
     notify_frontend.config['MAX_ROWS_IN_BULK_UPLOAD'] = 1
     transformed = transform_email(valid_file)
     assert len(transformed['errors']) == 1
-    print(transformed['errors'][0]['error'])
     assert transformed['errors'][0]['error'] == "Max number of rows (1) exceeded"
 
 

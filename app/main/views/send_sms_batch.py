@@ -28,7 +28,6 @@ def render_send_sms_batch(service_id):
 @main.route('/service/<int:service_id>/send-sms-batch', methods=['POST'])
 @login_required
 def process_sms_bulk(service_id):
-    print("starting process_sms_bulk")
     form = CreateSMSBatchForm()
 
     service = admin_api_client.get_service_by_user_id_and_service_id(int(session['user_id']), service_id)
