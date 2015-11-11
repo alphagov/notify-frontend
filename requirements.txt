@@ -13,4 +13,4 @@ Werkzeug==0.10.4
 pyOpenSSL==0.14
 pytz==2015.4
 
-git+https://github.com/alphagov/notify-api-client.git@0.1.3#egg=notify-api-client==0.1.3
+git+https://github.com/alphagov/notify-api-client.git@0.1.4#egg=notify-api-client==0.1.4
