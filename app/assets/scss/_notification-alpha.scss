@@ -1,4 +1,16 @@
+.column-two-thirds {
+  padding-right: 45px;
+}
 
+.column-sign-up {
+  margin: 60px 0;
+  h2 {
+    @include bold-24();
+  }
+  h2, p {
+    margin-bottom: 15px;
+  }
+}
 
 .summary-item-field-heading-first, .summary-item-field-heading {
     padding: 10px 0 10px 0px;

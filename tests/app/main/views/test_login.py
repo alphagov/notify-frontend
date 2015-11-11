@@ -23,7 +23,7 @@ def user():
 def test_should_render_login_page(notify_frontend):
     response = notify_frontend.test_client().get('/admin/login')
     assert response.status_code == 200
-    assert "Administrator login" in response.get_data(as_text=True)
+    assert "Sign in to GOV.UK Notify" in response.get_data(as_text=True)
 
 
 def test_should_redirect_to_dashboard_on_login(notify_frontend, mocker):
