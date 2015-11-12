@@ -4,21 +4,25 @@ from app.main import main
 
 @main.app_errorhandler(400)
 def page_not_found(e):
+    print(e.message)
     return _render_error_page(500)
 
 
 @main.app_errorhandler(404)
 def page_not_found(e):
+    print(e.message)
     return _render_error_page(404)
 
 
 @main.app_errorhandler(500)
 def exception(e):
+    print(e.message)
     return _render_error_page(500)
 
 
 @main.app_errorhandler(503)
 def service_unavailable(e):
+    print(e.message)
     return _render_error_page(503)
 
 
