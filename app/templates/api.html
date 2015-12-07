@@ -26,7 +26,7 @@ with items = [
 <div class="page-container">
     {%
     with
-    heading = "API details"
+    heading = "API keys and documentation"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
@@ -37,52 +37,24 @@ with items = [
 
             <li class="browse-list-item">
                 <a class="browse-list-item-link"
-                   href="#"><span>API status</span></a>
-
-                <p class="browse-list-item-body">
-                    {% if service.restricted %}
-                    Restricted
-                    {% else %}
-                    Unrestricted
-                    {% endif %}
-                </p>
-
-                <p class="browse-list-item-subtext">
-                    Restricted services can only send notifications to service <a
-                        href="{{ url_for('.view_service_users', service_id=service.id)}}">users</a>
-                </p>
-
-            </li>
-
-            <li class="browse-list-item">
-                <a class="browse-list-item-link"
-                   href="https://test-notify-api.herokuapp.com/"><span>API Url</span></a>
-
-                <p class="browse-list-item-body">
-                    https://test-notify-api.herokuapp.com/
-                </p>
-
-            </li>
-
-            <li class="browse-list-item">
-                <a class="browse-list-item-link"
-                   href="https://github.com/alphagov/notify-api-client"><span>API Client documentation</span></a>
-
-                <p class="browse-list-item-body">
-                    https://github.com/alphagov/notify-api-client
-                </p>
-
-            </li>
-
-            <li class="browse-list-item">
-                <a class="browse-list-item-link"
-                   href="https://github.com/alphagov/notify-api"><span>API documentation</span></a>
+                   href="https://github.com/alphagov/notify-api"><span>GOV.UK Notify API documentation</span></a>
 
                 <p class="browse-list-item-body">
                     https://github.com/alphagov/notify-api
                 </p>
 
             </li>
+            
+            <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="https://github.com/alphagov/notify-api-client"><span>API integration library (python)</span></a>
+
+                <p class="browse-list-item-body">
+                    Guidance and code to include in services using GOV.Uk Notify API
+                </p>
+
+            </li>
+
         </ul>
     </nav>
 
@@ -133,7 +105,7 @@ with items = [
 
     {%
     with
-    heading = "Key management"
+    heading = "API key management"
     %}
     {% include "toolkit/page-heading.html" %}
     {% endwith %}
@@ -152,6 +124,25 @@ with items = [
 
                 <p class="browse-list-item-subtext">
                     This must be kept secret
+                </p>
+
+            </li>
+            
+                        <li class="browse-list-item">
+                <a class="browse-list-item-link"
+                   href="#"><span>API status</span></a>
+
+                <p class="browse-list-item-body">
+                    {% if service.restricted %}
+                    Restricted
+                    {% else %}
+                    Unrestricted
+                    {% endif %}
+                </p>
+
+                <p class="browse-list-item-subtext">
+                    Restricted services can only send notifications to service <a
+                        href="{{ url_for('.view_service_users', service_id=service.id)}}">users</a>
                 </p>
 
             </li>
